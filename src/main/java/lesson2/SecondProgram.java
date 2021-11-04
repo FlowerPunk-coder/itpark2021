@@ -26,7 +26,6 @@ public class SecondProgram {
     public static void minus(int a, int b) {
 
         int result = a - b;
-
         System.out.println("В результате вычитания получилось: " + result);
     }
 
@@ -46,7 +45,7 @@ public class SecondProgram {
     }
 
     /**
-     * Расстояние между двумя точками на плоскости
+     * Вычисляет расстояние между двумя точками на плоскости и выводит результат.
      * @param xA    координата х точки А
      * @param yA    координата y точки A
      * @param xB    координата x точки B
