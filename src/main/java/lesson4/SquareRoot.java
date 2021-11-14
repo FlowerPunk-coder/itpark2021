@@ -5,7 +5,7 @@ public class SquareRoot {
 
     public static void main(String[] args) {
 
-        int sqrt = sqrt(24056);
+        int sqrt = sqrt(1205004);
         if (sqrt > 0) {
             System.out.println("Квадратный корень равен: " +
                     sqrt + " Значение точное.");
@@ -27,7 +27,7 @@ public class SquareRoot {
      */
     public static int sqrt(int a) {
 
-        if (a != 0 & a > 0) {
+        if (a > 0) {
             int sqrt = 0;
             int nextValue = 0; // получает следующую грань из массива
             int deductible;
@@ -69,7 +69,7 @@ public class SquareRoot {
 
         int point = a;
         int[] points = new int[10];
-        if (a != 0 & a > 0) {
+        if (a > 0) {
             for (int i = 0; ; i++) {
                 if (point > 10) {
                     points[i] = point % 100; // отделяем правую грань, по 2 цифры
