@@ -1,61 +1,73 @@
 package lesson3;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.Scanner;
 
 public class QuadraticEquation {
 
-
     public static void main(String[] args) {
 
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-
-            String text;
-            boolean isFlag = true;
-            while (isFlag) {
-                System.out.println("Выберите нужное:\n" +
-                        "1 - Решить квадратное уравнение\n" +
-                        "2 - Факториал числа");
-                text = reader.readLine();
-                if (text.equals("2")) {
-                    System.out.println("Введите положительное число от 0 до 20 для расчета факторила");
-                    text = reader.readLine();
-                    int n = Integer.parseInt(text);
-                    if (n >= 0 & n < 21) {
-                        factorial(n);
-                        isFlag = false;
-                    } else {
-                        System.out.println("Некорректное значение");
-                    }
-                } else if (text.equals("1")) {
-                    System.out.println("Для решения квадратного уравнения, пожалуйста, введите необходимые значения.");
-                    while (isFlag) {
-                        System.out.println("Введите первый коэффициент");
-                        text = reader.readLine();
-                        if (!text.equals("0")) {
-                            double a = Double.parseDouble(text);
-                            System.out.println("Введите второй коэффициент");
-                            text = reader.readLine();
-                            double b = Double.parseDouble(text);
-                            System.out.println("Введите третий коэффициент");
-                            text = reader.readLine();
-                            double c = Double.parseDouble(text);
-                            quadraticEquation(a, b, c);
-                            isFlag = false;
-                        } else {
-                            System.out.println("Первый коэффициент не может быть 0");
-                        }
-                    }
-                } else {
-                    System.out.println("Некорректное значение");
-                }
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("Выберите нужное:\n" +
+                    "1 - Решить квадратное уравнение\n" +
+                    "2 - Факториал числа");
+            while (!scanner.hasNextInt()) {
+                scanner.next();
+                System.out.println("Некорректное значение");
             }
-        } catch (IOException | InterruptedException e) {
-            System.out.println("Что-то пошло не так -> " + e.getMessage());
+            int choice = scanner.nextInt();
+            if (choice == 2) {
+                beginningFactorial(scanner);
+                break;
+            } else if (choice == 1) {
+                beginningQuadraticEquation(scanner);
+                break;
+            } else {
+                System.out.println("Некорректное значение");
+            }
         }
 
     }
+
+
+    public static void beginningFactorial(Scanner scanner) {
+        while (true) {
+            System.out.println("Введите положительное число от 0 до 20 для расчета факторила");
+            while (!scanner.hasNextInt()) {
+                scanner.next();
+                System.out.println("Некорректное значение.");
+            }
+            int n = scanner.nextInt();
+            if (n >= 0 & n < 21) {
+                factorial(n);
+                break;
+            }
+        }
+    }
+
+
+    public static void beginningQuadraticEquation(Scanner scanner) {
+        while (true) {
+            System.out.println("Для решения квадратного уравнения, пожалуйста, введите необходимые значения.");
+            System.out.println("Введите первый коэффициент:");
+            double a = checkingValue(scanner);
+            if (a != 0) {
+                System.out.println("Введите второй коэффициент:");
+                double b = checkingValue(scanner);
+                System.out.println("Введите третий коэффициент:");
+                double c = checkingValue(scanner);
+                try {
+                    quadraticEquation(a, b, c);
+                } catch (InterruptedException ex) {
+                    System.out.println("Что-то пошло не так -> " + ex.getMessage());
+                }
+                break;
+            } else {
+                System.out.println("Первый коэффициент не может быть 0");
+            }
+        }
+    }
+
 
     public static void quadraticEquation(double a, double b, double c) throws InterruptedException {
         double x1;
@@ -79,7 +91,6 @@ public class QuadraticEquation {
         } else {
             System.out.println("Нет действительных решений уравнения");
         }
-
     }
 
     public static void factorial(int n) {
@@ -91,5 +102,11 @@ public class QuadraticEquation {
         System.out.printf("Факториал числа %d! равен %d", n, result);
     }
 
-
+    public static double checkingValue(Scanner scanner) {
+        while (!scanner.hasNextDouble()) {
+            scanner.next();
+            System.out.println("Для ввода доступны только цифры");
+        }
+        return scanner.nextDouble();
+    }
 }
