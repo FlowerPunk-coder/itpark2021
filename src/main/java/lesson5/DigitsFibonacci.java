@@ -25,18 +25,18 @@ public class DigitsFibonacci {
         int result = 0;
 
         if (n == 0) {
-            System.out.println("Нулевое значение последовательности Фибоначчи равен 0");
+            System.out.println("Нулевое значение последовательности Фибоначчи равно 0");
         } else if (n == 1) {
-            System.out.println("Первое значение последовательности Фибоначчи равен 1");
+            System.out.println("Первое значение последовательности Фибоначчи равно 1");
         } else if (n == 2) {
-            System.out.println("Второе значение последовательности Фибоначчи равен 1");
+            System.out.println("Второе значение последовательности Фибоначчи равно 1");
         } else {
             for (int i = 2; i < n; i++) {
                 result = first + second;
                 first = second;
                 second = result;
             }
-            System.out.printf("%d значение последовательности Фибоначчи равен %d", n, result);
+            System.out.printf("%d значение последовательности Фибоначчи равно %d", n, result);
         }
     }
 }
