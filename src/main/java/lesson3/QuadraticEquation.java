@@ -26,7 +26,7 @@ public class QuadraticEquation {
                 System.out.println("Некорректное значение");
             }
         }
-
+        scanner.close();
     }
 
 

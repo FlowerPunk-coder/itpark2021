@@ -17,6 +17,7 @@ public class DigitsFibonacci {
             searchFibonacci(n);
             break;
         }
+        scanner.close();
     }
 
     public static void searchFibonacci(int n) {
