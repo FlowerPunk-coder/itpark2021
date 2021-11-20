@@ -1,24 +1,34 @@
 package lesson5;
 
+
 import java.util.Scanner;
 
 public class DigitsFibonacci {
 
     public static void main(String[] args) {
 
+        launchProgram();
+    }
+
+
+    public static void launchProgram() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("Введите номер значения в последовательности Фибоначчи которое хотите узнать: ");
+            //Ограничение связано с размером типа int
+            System.out.println("""
+                    Введите номер значения в последовательности Фибоначчи которое хотите узнать
+                    (диапазон значений от 0 до 47 включительно):""");
             while (!scanner.hasNextInt()) {
                 scanner.next();
                 System.out.println("На ввод доступны только цифры");
             }
             int n = scanner.nextInt();
-            searchFibonacci(n);
-            System.out.println();
-            System.out.println("----------------------------------------");
-            System.out.println(n + " значение последовательности Фибоначчи равно " + fibonacciAsRecursion(n));
-            break;
+            if (n >= 0 & n <= 47) {
+                searchFibonacci(n);
+                break;
+            } else {
+                System.out.println("Некорректное значение");
+            }
         }
         scanner.close();
     }
@@ -40,17 +50,8 @@ public class DigitsFibonacci {
                 first = second;
                 second = result;
             }
-            System.out.printf("%d значение последовательности Фибоначчи равно %d", n, result);
+            System.out.printf("%d-е значение последовательности Фибоначчи равно %d", n, result);
         }
     }
 
-    public static int fibonacciAsRecursion(int n) {
-        if (n == 0) {
-            return 0;
-        } else if (n == 1 || n == 2 || n == 3) {
-            return 1;
-        } else {
-            return fibonacciAsRecursion(n - 2) + fibonacciAsRecursion(n - 1);
-        }
-    }
 }
