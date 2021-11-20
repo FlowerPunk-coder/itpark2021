@@ -31,10 +31,7 @@ public class FibonacciFromArray {
                     System.out.println("0-е значение последовательности Фибоначчи равно 0");
                 } else if (n == 1 || n == 2) {
                     if (arr == null) {
-                        arr = new int[n];
-                        if (n == 2) {
-                            arr[1] = 1;
-                        }
+                        arr = new int[]{0,1};
                     }
                     System.out.printf("%d-е значение последовательности Фибоначчи равно %d\n", n, arr[n - 1]);
                 } else {
