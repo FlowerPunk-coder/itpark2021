@@ -3,33 +3,28 @@ package lesson6;
 import java.util.Arrays;
 import java.util.Scanner;
 
+
 public class ArrayRunner {
 
-    private static int index = 0;
     private static int[] arr;
-    private static boolean isFlag = true;
-    private static int min = Integer.MAX_VALUE;
-    private static int max = Integer.MIN_VALUE;
-    private static double avg;
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Добро пожаловать в программу поиска значений в массиве.");
-
-        createArray(scanner);
-        choiceOfProgram(scanner);
-
+        choiceOfProgram();
     }
 
 
-    public static void choiceOfProgram(Scanner scanner) {
-
-        while (isFlag) {
-            System.out.println("Выберите действие:\n" +
-                    "1 - Найти МАКСимальное значение в массиве.\n" +
-                    "2 - Найти среднее арифмитическое значение всего массива\n" +
-                    "3 - Найти МИНИмальное значение в массиве\n" +
-                    "0 - Выйти из программы.");
+    public static void choiceOfProgram() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Добро пожаловать в программу поиска значений в массиве.");
+        while (true) {
+            System.out.println("------------------");
+            System.out.println("""
+                    Выберите действие:
+                    1 - Найти МАКСимальное значение в массиве
+                    2 - Найти среднее арифмитическое значение всего массива
+                    3 - Найти МИНИмальное значение в массиве
+                    4 - Создать новый массив значений
+                    0 - Выйти из программы""");
             int choice = checkValue(scanner);
             if (choice == 0) {
                 break;
@@ -42,65 +37,77 @@ public class ArrayRunner {
             } else if (choice == 3) {
                 minValue();
 
+            } else if (choice == 4) {
+               createArray(scanner);
+
             } else {
                 System.out.println("Введено некорректное значение.");
-                System.out.println("------------------------------");
             }
-            resumeProgram(scanner);
         }
+        scanner.close();
     }
 
     private static void minValue() {
+        if (arr == null) {
+            System.out.println("Массив не создан! Сначала создайте массив!");
+            return;
+        }
         try {
             System.out.println("Начинаю поиск минимального значения в массиве...");
             Thread.sleep(500);
+            int min = Integer.MAX_VALUE;
             for (int i = 0; i < arr.length; i++) {
                 if (min > arr[i]) {
                     min = arr[i];
-                    index = i;
                 }
             }
             System.out.println("Поиск окончен.");
-            System.out.println("Минимальное значение в массиве равно " + min + " по индексу " + index);
+            System.out.println("Минимальное значение в массиве равно " + min);
             System.out.println(Arrays.toString(arr));
             Thread.sleep(500);
         } catch (InterruptedException ex) {
             System.out.println("Что-то пошло не так -> " + ex.getMessage());
         }
-
     }
 
     private static void avgValue() {
+        if (arr == null) {
+            System.out.println("Массив не создан! Сначала создайте массив!");
+            return;
+        }
+        double avg = 0.0;
         try {
-            System.out.println("Начинаю поиск среднеарифметического значения...");
+            System.out.println("Начинаю поиск среднего арифметического значения...");
             Thread.sleep(500);
             for (int i = 0; i < arr.length; i++) {
                 avg += arr[i];
             }
             avg /= arr.length;
             System.out.println("Поиск окончен.");
-            System.out.println("Среднеарифметическое значение всего массива равно " + avg);
+            System.out.println("Среднее арифметическое значение всего массива равно " + avg);
             System.out.println(Arrays.toString(arr));
             Thread.sleep(500);
-        }
-        catch (InterruptedException ex) {
+        } catch (InterruptedException ex) {
             System.out.println("Что-то пошло не так -> " + ex);
         }
     }
 
     private static void maxValue() {
+        if (arr == null) {
+            System.out.println("Массив не создан! Сначала создайте массив!");
+            return;
+        }
         try {
             System.out.println("Начинаю поиск максимального значения в массиве...");
             Thread.sleep(500);
-            max = arr[0];
+            int max = Integer.MIN_VALUE;
             for (int i = 0; i < arr.length; i++) {
                 if (max < arr[i]) {
                     max = arr[i];
-                    index = i;
                 }
             }
             System.out.println("Поиск окончен.");
-            System.out.println("Максимальное значение в массиве равно " + max + " по индексу " + index);
+            System.out.println("Максимальное значение в массиве равно " + max);
             System.out.println(Arrays.toString(arr));
             Thread.sleep(500);
         } catch (InterruptedException ex) {
@@ -120,7 +127,7 @@ public class ArrayRunner {
                 }
                 try {
                     Thread.sleep(500);
-                    System.out.println("Массив заполнен");
+                    System.out.println("Массив заполнен.");
                     Thread.sleep(500);
                 } catch (InterruptedException ex) {
                     System.out.println("Что-то пошло не так -> " + ex.getMessage());
@@ -138,23 +145,6 @@ public class ArrayRunner {
             System.out.println("Для ввода доступны только целые числа");
         }
         return scanner.nextInt();
-    }
-
-    public static void resumeProgram(Scanner scanner) {
-        while (true) {
-            System.out.println("Выберите действие:\n" +
-                    "1 - Вернуться в меню\n" +
-                    "0 - Выйти из программы");
-            int choice = checkValue(scanner);
-            if (choice == 0) {
-                isFlag = false;
-                break;
-            } else if (choice == 1) {
-                break;
-            } else {
-                System.out.println("Некорректное значение");
-            }
-        }
     }
 
 }
