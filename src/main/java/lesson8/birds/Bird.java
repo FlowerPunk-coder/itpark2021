@@ -18,7 +18,7 @@ public class Bird {
     }
 
     public void voice() {
-
+        System.out.println("Разные птицы издают разные звуки");
     }
 
     @Override
