@@ -2,11 +2,11 @@ package lesson7;
 
 public class Cat {
 
-    String name;
-    String color;
-    int age;
-    double weight;
-    boolean isHomeless;
+    private String name;
+    private String color;
+    private int age;
+    private double weight;
+    private boolean isHomeless;
 
     public Cat(String name, String color, int age, double weight, boolean isHomeless) {
         this.name = checkNotNull(name);

@@ -2,10 +2,10 @@ package lesson7;
 
 public class Tiger {
 
-    String name;
-    int age;
-    double weight;
-    boolean isCounted;
+    private String name;
+    private int age;
+    private double weight;
+    private boolean isCounted;
 
     public Tiger(String name, int age, double weight, boolean isCounted) {
         this.name = checkNotNull(name);
