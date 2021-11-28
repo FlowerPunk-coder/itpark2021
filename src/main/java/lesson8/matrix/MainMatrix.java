@@ -38,7 +38,7 @@ public class MainMatrix {
                 break;
             }
             try {
-                if (choice > 0 & choice < 8){
+                if (choice > 0 & choice < 8) {
                     preStart(scanner, choice);
                 }
                 if (choice == 1) {
@@ -55,11 +55,11 @@ public class MainMatrix {
                     constanta = checkValue(scanner);
                     multiplyAtConst();
                 } else if (choice == 5) {
-
+                    minorMatrixTwo(matrixOne);
                 } else if (choice == 6) {
 
                 } else if (choice == 7) {
-
+                    transpon(matrixOne);
                 } else {
                     System.out.println("Введено некорректное значение");
                 }
@@ -202,9 +202,9 @@ public class MainMatrix {
 
     public boolean determinantMatrix(int size) {
         if (size == 2) {
-           det = (matrixOne[0][0] * matrixOne[1][1]) - (matrixOne[0][1] * matrixOne[1][0]);
+            det = (matrixOne[0][0] * matrixOne[1][1]) - (matrixOne[0][1] * matrixOne[1][0]);
         } else {
-            det =   matrixOne[0][0] * matrixOne[1][1] * matrixOne[2][2] + //диагональ 0.0-2.0
+            det = matrixOne[0][0] * matrixOne[1][1] * matrixOne[2][2] + //диагональ 0.0-2.0
                     matrixOne[0][1] * matrixOne[1][2] * matrixOne[2][0] + //первый треугольник (верхний)
                     matrixOne[0][2] * matrixOne[1][0] * matrixOne[2][1] - //второй треугольник (нижний) переход к минусу
                     matrixOne[0][2] * matrixOne[1][1] * matrixOne[2][0] - //диагональ 0.2-2.0
@@ -218,31 +218,34 @@ public class MainMatrix {
         return true;
     }
 
-    public void minorMatrixTwo(int[][] matrix, int size) {
+    public void minorMatrixTwo(int[][] matrix) {
         resultMatrix = new int[m][n];
-        resultMatrix[0][0] = matrix[1][1];
-        resultMatrix[0][1] = -matrix[1][0];
-        resultMatrix[1][0] = -matrix[0][1];
-        resultMatrix[1][1] = matrix[0][0];
-        transpon(resultMatrix, size);
+        int z = 0, x = 0;
+        int temp = 0, temp1 = 0;
+        for (int i = n - 1; i > 0; i--) {
+            for (int j = n - 1; j > 0; j--) {
+                temp = matrix[i][j] * matrix[i - 1][i - 1];
+                temp1 = matrix[j][i - 1] * matrix[i - 1][j];
+            }
+        }
+        resultMatrix[z][x] = ((x + z) % 2 == 1) ? (temp - temp1) : -(temp - temp1);
+        z++;
+        printMatrix(resultMatrix);
     }
 
-    public int[][] transpon(int[][] matrix, int size) {
+    public int[][] transpon(int[][] matrix) {
         int temp;
-        if (size == 2) {
-            temp = matrix[0][1];
-            matrix[0][1] = matrix[1][0];
-            matrix[1][0] = temp;
-        } else {
-            temp = matrix[0][1];
-            matrix[0][1] = matrix[1][0];
-            matrix[1][0] = temp;
-            temp = matrix[2][0];
-            matrix[2][0] = matrix[0][2];
-            matrix[0][2] = temp;
-
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (i < j) {
+                    temp = matrix[i][j];
+                    matrix[i][j] = matrix[j][i];
+                    matrix[j][i] = temp;
+                }
+            }
         }
-            return matrix;
+        printMatrix(matrix);
+        return matrix;
     }
 
     public void printMatrix(int[][] matrix) {
@@ -253,6 +256,10 @@ public class MainMatrix {
     }
 
     private void printResult() {
+        if (matrixOne == null || matrixTwo == null) {
+            System.out.println("Матрицы не заполнены");
+            return;
+        }
         System.out.println("Результат получен:");
         for (int i = 0; i < m; i++) {
             if (i == Math.round(n / 2)) {
