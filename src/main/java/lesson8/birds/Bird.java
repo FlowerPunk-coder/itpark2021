@@ -1,6 +1,6 @@
 package lesson8.birds;
 
-public class Bird {
+public abstract class Bird {
 
     private String type;
     private int size;
@@ -17,9 +17,7 @@ public class Bird {
         this.id = id;
     }
 
-    public void voice() {
-        System.out.println("Разные птицы издают разные звуки");
-    }
+    public abstract void voice();
 
     @Override
     public String toString() {
