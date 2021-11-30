@@ -15,6 +15,7 @@ public class ReverseMatrix {
             System.out.println("Расчет обратной матрицы только для матриц второго и третьего порядка");
             return;
         }
+
         if (matrix.length != matrix[0].length) {
             System.out.println("Обратная матрица возможна только для квадратных матриц!");
             return;
