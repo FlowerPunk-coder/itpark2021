@@ -6,9 +6,10 @@ import java.util.Scanner;
 public class MainMatrix {
 
     private static String sign;
-    private int constanta;
-    private int[][] matrixOne;
-    private int[][] matrixTwo;
+    private double constanta;
+    private double[][] matrixOne;
+    private double[][] matrixTwo;
+    private double[][] resultMatrix;
     private DriverMatrix dm;
 
     public MainMatrix() {
@@ -31,7 +32,7 @@ public class MainMatrix {
                     6 - возвести матрицу в степень
                     7 - транспонирование матрицы
                     0 - выйти из программы""");
-            int choice = checkValue(scanner);
+            double choice = checkValue(scanner);
             if (choice == 0) {
                 break;
             }
@@ -40,28 +41,31 @@ public class MainMatrix {
                     preStart(scanner, choice);
                 }
                 if (choice == 1) {
-                    this.sign = " + ";
-                    dm.summaMatrices(matrixOne, matrixTwo);
+                    sign = " + ";
+                    resultMatrix = dm.summaMatrices(matrixOne, matrixTwo);
+                    printResult(matrixOne, matrixTwo, resultMatrix);
                 } else if (choice == 2) {
-                    this.sign = " - ";
-                    dm.subtractMatrices(matrixOne, matrixTwo);
+                    sign = " - ";
+                    resultMatrix = dm.subtractMatrices(matrixOne, matrixTwo);
+                    printResult(matrixOne, matrixTwo, resultMatrix);
                 } else if (choice == 3) {
-                    this.sign = " * ";
-                    dm.multiplicationMatrices(matrixOne, matrixTwo);
+                    sign = " * ";
+                    System.out.println("Выполняю умножение введенных матриц...");
+                    resultMatrix = dm.multiplicationMatrices(matrixOne, matrixTwo);
+                    printResult(matrixOne, matrixTwo, resultMatrix);
                 } else if (choice == 4) {
                     System.out.print("Введите число на которое нужно умножить матрицу: ");
                     constanta = checkValue(scanner);
-                    dm.multiplyAtConst(matrixOne, constanta);
+                    printMatrix(dm.multiplyAtConst(matrixOne, constanta));
                 } else if (choice == 5) {
-                    System.out.println("Данный функционал находится в разработке, " +
-                            "приносим извинения за доставленные неудобства.");
-                    //reverseMatrix();
-                    //dm.minorMatrixThree(matrixOne,0,0);
+                    ReverseMatrix rM = new ReverseMatrix();
+                    rM.reverseMatrix(matrixOne);
                 } else if (choice == 6) {
-                    System.out.println("Данный функционал находится в разработке, " +
-                            "приносим извинения за доставленные неудобства.");
+                    System.out.print("Введите степень: ");
+                    constanta = checkValue(scanner);
+                    printMatrix(dm.pow(matrixOne, constanta));
                 } else if (choice == 7) {
-                    dm.transpon(matrixOne);
+                    printMatrix(dm.transpon(matrixOne));
                 } else {
                     System.out.println("Введено некорректное значение");
                 }
@@ -72,7 +76,7 @@ public class MainMatrix {
         scanner.close();
     }
 
-    public void preStart(Scanner scanner, int choice) throws InterruptedException {
+    public void preStart(Scanner scanner, double choice) throws InterruptedException {
         if (choice <= 3) {
             System.out.println("Первая матрица");
             matrixOne = createMatrix(scanner);
@@ -83,18 +87,18 @@ public class MainMatrix {
         }
     }
 
-    public int[][] createMatrix(Scanner scanner) throws InterruptedException {
+    public double[][] createMatrix(Scanner scanner) throws InterruptedException {
         System.out.println("Введите размер матрицы в формате m x n");
         System.out.print("Введите количество строк (m): ");
-        int m = checkValue(scanner);
+        double m = checkValue(scanner);
         System.out.print("Введите количество столбцов (n): ");
-        int n = checkValue(scanner);
-        int[][] tempMatrix = new int[m][n];
+        double n = checkValue(scanner);
+        double[][] tempMatrix = new double[(int) m][(int) n];
         System.out.println("""
                 Введите значения матрицы.
                 Значения вводите в одну строку разделяя цифры запятой. Например: 1,2,-3,4 и т.д.
                 Заполнение матрицы происходит строками.
-                Для этой матрицы количество значений должно быть равно:""" + " " + (m * n));
+                Для этой матрицы количество значений должно быть равно:""" + " " + (int) (m * n));
         String[] values = scanner.next().split(",");
         System.out.println("Заполняю матрицу...");
         Thread.sleep(500);
@@ -118,14 +122,14 @@ public class MainMatrix {
         return tempMatrix;
     }
 
-    public void printMatrix(int[][] matrix) {
+    public void printMatrix(double[][] matrix) {
         for (int i = 0; i < matrix.length; i++) {
             System.out.println(Arrays.toString(matrix[i]));
         }
         System.out.println("------------");
     }
 
-    public void printResult(int[][] matrixOne, int[][] matrixTwo, int[][] resultMatrix) {
+    public void printResult(double[][] matrixOne, double[][] matrixTwo, double[][] resultMatrix) {
         if (matrixOne == null || matrixTwo == null) {
             System.out.println("Матрицы не заполнены");
             return;
@@ -133,7 +137,7 @@ public class MainMatrix {
         System.out.println("Результат получен:");
         for (int i = 0; i < matrixOne.length; i++) {
             if (i == Math.round(matrixOne.length / 2)) {
-                System.out.println(Arrays.toString(matrixOne[i]) + this.sign + Arrays.toString(matrixTwo[i]) +
+                System.out.println(Arrays.toString(matrixOne[i]) + sign + Arrays.toString(matrixTwo[i]) +
                         " = " + Arrays.toString(resultMatrix[i]));
             } else {
                 System.out.println(Arrays.toString(matrixOne[i]) + "   " + Arrays.toString(matrixTwo[i]) +
@@ -142,12 +146,36 @@ public class MainMatrix {
         }
     }
 
-    public int checkValue(Scanner scanner) {
-        while (!scanner.hasNextInt()) {
-            scanner.next();
-            System.out.println("Для ввода доступны только целые числа");
+    public void printWithDet(double[][] matrixOne, double det) {
+        if (matrixOne == null) {
+            System.out.println("Матрицы не заполнены");
+            return;
         }
-        return scanner.nextInt();
+        String l = 1 + "/" + det;
+        if (det == 1) {
+            l = "1";
+        }
+        String space = "";
+        for (int i = 0; i < l.length() + 3; i++) {
+            space += " ";
+        }
+
+        System.out.println("Результат получен:");
+        for (int i = 0; i < matrixOne.length; i++) {
+            if (i == Math.round(matrixOne.length / 2)) {
+                System.out.println(l + " * " + Arrays.toString(matrixOne[i]));
+            } else {
+                System.out.println(space + Arrays.toString(matrixOne[i]));
+            }
+        }
+    }
+
+    public double checkValue(Scanner scanner) {
+        while (!scanner.hasNextDouble()) {
+            scanner.next();
+            System.out.println("Для ввода доступны только цифры");
+        }
+        return scanner.nextDouble();
     }
 
 }
