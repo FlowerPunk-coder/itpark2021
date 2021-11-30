@@ -11,8 +11,8 @@ public class ReverseMatrix {
     }
 
     public void reverseMatrix(double[][] matrix) throws InterruptedException {
-        if ((matrix.length > 4 & matrix.length < 2) | (matrix[0].length > 4 & matrix[0].length < 2)) {
-            System.out.println("Расчет обратной матрицы только для матриц второго и третьего порядка");
+        if ((matrix.length != 3 | (matrix[0].length != 3))) {
+            System.out.println("Расчет обратной матрицы только для матриц третьего порядка");
             return;
         }
 
