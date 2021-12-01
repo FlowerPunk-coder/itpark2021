@@ -29,7 +29,7 @@ public class ReverseMatrix {
             System.out.println("Выполняю расчет обратной матрицы...");
             for (int i = 0; i < matrix.length; i++) {
                 for (int j = 0; j < matrix[0].length; j++) {
-                   tempMatrix = minorMatrixThree(matrix,i,j);
+                   tempMatrix = minorMatrixThree(matrix, i, j);
                    x = ((i + j) % 2 == 0) ? 1 : -1;
                    resultMatrix[i][j] = x * ((tempMatrix[0][0] * tempMatrix[1][1]) -
                            (tempMatrix[0][1] * tempMatrix[1][0]));

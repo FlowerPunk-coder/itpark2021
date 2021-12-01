@@ -167,7 +167,6 @@ public class MainMatrix {
             } else {
                 System.out.println(space + Arrays.toString(matrixOne[i]));
             }
-
         }
     }
 

@@ -38,7 +38,6 @@ public class DriverMatrix {
         }
         Thread.sleep(500);
         return resultMatrix;
-
     }
 
     public double[][] multiplicationMatrices(double[][] matrixOne, double[][] matrixTwo) throws InterruptedException {
