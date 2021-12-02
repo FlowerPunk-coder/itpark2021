@@ -12,7 +12,7 @@ public final class Truck extends Automobile {
     @Override
     public void move(int n) {
         System.out.println("звелся...");
-        if (n > 0 & n <=1200) {
+        if (n > 0 & n <= 1200) {
             System.out.println("начал движение и без остановки проехал " + n + " километров");
         } else if (n > 1200) {
             System.out.println("проехал долгий путь в 1200 километров и почти добрался до места назначения...");
