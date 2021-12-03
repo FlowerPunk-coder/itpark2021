@@ -10,7 +10,7 @@ public class AutoRunner {
                 Fuel.PETROL98, 650, 310);
         Automobile thirdCar = new Car("Mercedes", "ML320","серебристый", "кроссовер",
                 Fuel.DIESEL,224, 270);
-        Automobile fourthCar = new Car("VolksWagen", "поло", "вишневый", "седан",
+        Automobile fourthCar = new Car("Volkswagen", "поло", "вишневый", "седан",
                 Fuel.PETROL95, 105, 190);
         Automobile fifthCar = new Car("Lada", "веста", "баклажан", "седан",
                 Fuel.PETROL92, 85, 160);
