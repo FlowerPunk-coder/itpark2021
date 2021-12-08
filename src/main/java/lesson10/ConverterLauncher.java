@@ -6,8 +6,13 @@ public class ConverterLauncher {
         Thermometer thermK = new ThermometerAtKelvin();
         Thermometer thermC = new ThermometerAtCelsius();
         Thermometer thermF = new ThermometerAtFahrenheit();
-        thermF.convertTemperature(45, Temperature.CELSIUS, Temperature.FAHRENHEIT);
-        thermC.convertTemperature(45, Temperature.CELSIUS, Temperature.KELVIN);
-        thermK.convertTemperature(45, Temperature.FAHRENHEIT, Temperature.KELVIN);
+        thermF.measureTemp(23);
+        thermC.measureTemp(42);
+        thermK.measureTemp(43.5874);
+        thermF.convertTemperature(Temperature.CELSIUS, Temperature.FAHRENHEIT);
+        thermC.convertTemperature(Temperature.CELSIUS, Temperature.KELVIN);
+        thermK.convertTemperature(Temperature.FAHRENHEIT, Temperature.KELVIN);
+        System.out.println(thermK);
+        thermC.measureTemp(24).convertTemperature(Temperature.CELSIUS, Temperature.FAHRENHEIT);
     }
 }

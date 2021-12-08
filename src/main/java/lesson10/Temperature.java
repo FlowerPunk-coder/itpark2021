@@ -6,7 +6,7 @@ public enum Temperature {
 
     private String type;
 
-    Temperature(String type) {
+    Temperature (String type) {
         this.type = type;
     }
 
