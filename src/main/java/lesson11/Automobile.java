@@ -6,7 +6,8 @@ public abstract class Automobile {
     String type;
 
     public Automobile() {
-        this.licensePlate = new LicensePlate().licensePlate;
+
+        this.licensePlate = new LicensePlate().getLicensePlate();
     }
 
     public abstract int acceleration();

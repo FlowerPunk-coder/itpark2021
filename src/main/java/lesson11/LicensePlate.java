@@ -6,8 +6,8 @@ import java.util.Random;
 
 public class LicensePlate {
 
-    int licensePlate;
-    static List<Integer> licensePlateArr = new ArrayList<>();
+    private int licensePlate;
+    private static List<Integer> licensePlateArr = new ArrayList<>();
 
     public LicensePlate() {
         createLicensePlate();
@@ -22,5 +22,9 @@ public class LicensePlate {
             }
             licensePlate = new Random().nextInt(1_000);
         }
+    }
+
+    public int getLicensePlate() {
+        return licensePlate;
     }
 }
