@@ -6,7 +6,6 @@ public abstract class Automobile {
     String type;
 
     public Automobile() {
-
         this.licensePlate = new LicensePlate().getLicensePlate();
     }
 
