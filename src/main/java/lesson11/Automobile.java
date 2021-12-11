@@ -1,0 +1,18 @@
+package lesson11;
+
+public abstract class Automobile {
+
+    int licensePlate, speed, weight, high, wight, length;
+    String type;
+
+    public Automobile() {
+        this.licensePlate = new LicensePlate().licensePlate;
+    }
+
+    public abstract int acceleration();
+
+    @Override
+    public String toString() {
+        return type + " автомобиль, гос. номер " + licensePlate;
+    }
+}
