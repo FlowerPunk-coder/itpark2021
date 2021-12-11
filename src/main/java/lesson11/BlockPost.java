@@ -26,15 +26,15 @@ public class BlockPost {
                 checkWeight(auto);
                 checkDimensions(auto);
             }catch (MaxWeightException ex) {
-                System.out.printf("%s, не прошел проверку разрешенного веса %d т. Вес данного автомобиля состовляет: %d\n",
+                System.out.printf("%s, не прошел проверку разрешенного веса %dт. Вес данного автомобиля состовляет: %dт\n",
                         auto, MAX_WEIGHT, auto.weight);
                 violators.add(auto);
             }catch (MaxDimensionsException ex) {
                 System.out.printf("%s, не прошел проверку разрешенных габаритов: " +
-                                "ширина %.1f, " +
-                                "высота %d. " +
-                                "Габариты данного автомобиля состовляет: ширина: %d, высота: %d\n",
-                        auto, MAX_WIDTH, MAX_HIGH, auto.weight, auto.high);
+                                "ширина %.1f м, " +
+                                "высота %d м. " +
+                                "Габариты данного автомобиля состовляет: ширина: %d м, высота: %d м\n",
+                                auto, MAX_WIDTH, MAX_HIGH, auto.weight, auto.high);
                 violators.add(auto);
             }
         }
@@ -46,7 +46,7 @@ public class BlockPost {
         if (auto.weight > MAX_WEIGHT) {
             throw new MaxWeightException();
         } else {
-            System.out.printf("%s, прошел проверку веса (%d т)\n",
+            System.out.printf("%s, прошел проверку веса (%dт)\n",
                     auto, auto.weight);
         }
     }
@@ -55,7 +55,7 @@ public class BlockPost {
         if (auto.wight > MAX_WIDTH | auto.high > MAX_HIGH) {
             throw new MaxDimensionsException();
         } else {
-            System.out.printf("%s, прошел проверку габаритов (ширина: %d, высота: %d) и может проезжать\n",
+            System.out.printf("%s, прошел проверку габаритов (ширина: %d м, высота: %d м) и может проезжать\n",
                     auto, auto.wight, auto.high);
         }
     }

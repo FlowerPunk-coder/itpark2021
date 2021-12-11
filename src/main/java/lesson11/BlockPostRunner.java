@@ -9,8 +9,7 @@ public class BlockPostRunner {
         try {
             Traffic traffic = new Traffic();
             automobiles = traffic.createTraffic(5);
-            RoadToBlockPost.toBlockPost(automobiles);
-            BlockPost.throughBlocPost(automobiles);
+            BlockPost.throughBlocPost(RoadToBlockPost.toBlockPost(automobiles));
             for (Automobile auto : automobiles) {
                 System.out.println("-----------------");
                 System.out.println(auto + ", проехал через КПП");

@@ -39,14 +39,14 @@ public class RoadToBlockPost {
             checkSpeed(auto.acceleration());
         } catch (MaxSpeedException ex) {
             if (auto.speed > MAX_SPEED_DETENTION) {
-                System.out.printf(message + "%d, полиция выехала на задержание...\n", auto.speed);
+                System.out.printf(message + "%d км/ч, полиция выехала на задержание...\n", auto.speed);
                 new SpecialCar(SpecialType.POLICE).detention(auto);
                 return false;
             }
-            System.out.printf(message + "%d, превышая максимально допустимую скорость", auto.speed);
+            System.out.printf(message + "%d км/ч, превышая максимально допустимую скорость", auto.speed);
             return true;
         }
-        System.out.print(message + auto.speed);
+        System.out.print(message + auto.speed + " км/ч");
         return true;
     }
 
