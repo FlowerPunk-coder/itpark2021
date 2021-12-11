@@ -29,7 +29,7 @@ public class Traffic {
         auto.weight = (auto instanceof Car) ? new Random().nextInt(3) + MIN : new Random().nextInt(13) + MIN;
         auto.length = (auto instanceof Car) ? new Random().nextInt(3) + MIN : new Random().nextInt(13) + MIN;
         auto.high = (auto instanceof Car) ? new Random().nextInt(2) + MIN : new Random().nextInt(3) + MIN;
-        auto.wight = (auto instanceof Car) ? new Random().nextInt(2) + MIN : new Random().nextInt(3) + MIN;
+        auto.width = (auto instanceof Car) ? new Random().nextInt(1) + MIN : new Random().nextInt(2) + MIN;
         return auto;
     }
 

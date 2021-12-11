@@ -34,7 +34,7 @@ public class BlockPost {
                                 "ширина %.1f м, " +
                                 "высота %d м. " +
                                 "Габариты данного автомобиля состовляет: ширина: %d м, высота: %d м\n",
-                                auto, MAX_WIDTH, MAX_HIGH, auto.weight, auto.high);
+                                auto, MAX_WIDTH, MAX_HIGH, auto.width, auto.high);
                 violators.add(auto);
             }
         }
@@ -52,11 +52,11 @@ public class BlockPost {
     }
 
     private static void checkDimensions(Automobile auto) {
-        if (auto.wight > MAX_WIDTH | auto.high > MAX_HIGH) {
+        if (auto.width > MAX_WIDTH | auto.high > MAX_HIGH) {
             throw new MaxDimensionsException();
         } else {
             System.out.printf("%s, прошел проверку габаритов (ширина: %d м, высота: %d м) и может проезжать\n",
-                    auto, auto.wight, auto.high);
+                    auto, auto.width, auto.high);
         }
     }
 

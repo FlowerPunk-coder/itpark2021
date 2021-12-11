@@ -2,7 +2,7 @@ package lesson11;
 
 public abstract class Automobile {
 
-    int licensePlate, speed, weight, high, wight, length;
+    int licensePlate, speed, weight, high, width, length;
     String type;
 
     public Automobile() {
