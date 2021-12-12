@@ -2,8 +2,8 @@ package lesson11;
 
 public abstract class Automobile {
 
-    int licensePlate, speed, weight, high, width, length;
-    String type;
+    int speed, weight, high, width, length;
+    String type, licensePlate;
 
     public Automobile() {
         this.licensePlate = new LicensePlate().getLicensePlate();
