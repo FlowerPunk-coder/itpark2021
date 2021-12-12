@@ -8,12 +8,16 @@ public class BlockPostRunner {
         List<Automobile> automobiles;
         try {
             Traffic traffic = new Traffic();
+            RoadToBlockPost road = new RoadToBlockPost();
+            BlockPost post = new BlockPost(8, 4, 2.5);
             automobiles = traffic.createTraffic(10);
-            BlockPost.throughBlocPost(RoadToBlockPost.toBlockPost(automobiles));
+            post.throughBlockPost(road.toBlockPost(automobiles));
             for (Automobile auto : automobiles) {
-                System.out.println("-----------------");
+                System.out.println("----------------------");
                 System.out.println(auto + ", проехал через КПП");
             }
+            System.out.println("----------------------");
+            System.out.println(automobiles.size() + " автомобилей проехало через КПП");
         } catch (IllegalArgumentException ex) {
             System.out.println("Дорога пустая, машин нет.");
         } catch (InterruptedException ex) {

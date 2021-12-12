@@ -8,16 +8,19 @@ import java.util.List;
 
 public class BlockPost {
 
-    private final static int MAX_WEIGHT = 8;
-    private final static int MAX_HIGH = 4;
-    private final static double MAX_WIDTH = 2.5;
+    private final int maxWeight;
+    private final int maxHigh;
+    private final double maxWidth;
+    private List<Automobile> overSizes;
 
-    public BlockPost() {
-
+    public BlockPost(int maxWeight, int maxHigh, double maxWidth) {
+        this.maxWeight = maxWeight;
+        this.maxHigh = maxHigh;
+        this.maxWidth = maxWidth;
     }
 
-    public static List<Automobile> throughBlocPost(List<Automobile> traffic) throws InterruptedException {
-        List<Automobile> violators = new ArrayList<>();
+    public List<Automobile> throughBlockPost(List<Automobile> traffic) throws InterruptedException {
+        overSizes = new ArrayList<>();
         for (Automobile auto : traffic) {
             Thread.sleep(150);
             System.out.println("----------------------");
@@ -27,23 +30,25 @@ public class BlockPost {
                 checkDimensions(auto);
             }catch (MaxWeightException ex) {
                 System.out.printf("%s, не прошел проверку разрешенного веса %dт. Вес данного автомобиля состовляет: %dт\n",
-                        auto, MAX_WEIGHT, auto.weight);
-                violators.add(auto);
+                        auto, maxWeight, auto.weight);
+                overSizes.add(auto);
             }catch (MaxDimensionsException ex) {
                 System.out.printf("%s, не прошел проверку разрешенных габаритов: " +
                                 "ширина %.1f м, " +
                                 "высота %d м. " +
                                 "Габариты данного автомобиля состовляет: ширина: %d м, высота: %d м\n",
-                                auto, MAX_WIDTH, MAX_HIGH, auto.width, auto.high);
-                violators.add(auto);
+                                auto, maxWidth, maxHigh, auto.width, auto.high);
+                overSizes.add(auto);
             }
         }
-        traffic.removeAll(violators);
+        System.out.println("----------------------");
+        System.out.println(overSizes.size() + " автомобилей не смогли проехать через КПП");
+        traffic.removeAll(overSizes);
         return traffic;
     }
 
-    private static void checkWeight(Automobile auto) {
-        if (auto.weight > MAX_WEIGHT) {
+    private void checkWeight(Automobile auto) {
+        if (auto.weight > maxWeight) {
             throw new MaxWeightException();
         } else {
             System.out.printf("%s, прошел проверку веса (%dт)\n",
@@ -51,8 +56,8 @@ public class BlockPost {
         }
     }
 
-    private static void checkDimensions(Automobile auto) {
-        if (auto.width > MAX_WIDTH | auto.high > MAX_HIGH) {
+    private void checkDimensions(Automobile auto) {
+        if (auto.width > maxWidth | auto.high > maxHigh) {
             throw new MaxDimensionsException();
         } else {
             System.out.printf("%s, прошел проверку габаритов (ширина: %d м, высота: %d м) и может проезжать\n",
@@ -60,5 +65,19 @@ public class BlockPost {
         }
     }
 
+    public int getMaxWeight() {
+        return maxWeight;
+    }
 
+    public int getMaxHigh() {
+        return maxHigh;
+    }
+
+    public double getMaxWidth() {
+        return maxWidth;
+    }
+
+    public List<Automobile> getOverSizes() {
+        return overSizes;
+    }
 }
