@@ -24,7 +24,7 @@ public class BlockPost {
         for (Automobile auto : traffic) {
             Thread.sleep(150);
             System.out.println("----------------------");
-            System.out.println(auto + " въезжает на КПП для прохождения проверок...");
+            System.out.println(auto + ", въезжает на КПП для прохождения проверок...");
             try {
                 checkWeight(auto);
                 checkDimensions(auto);
