@@ -5,14 +5,14 @@ import lesson13.Employee;
 
 import java.util.*;
 
-public class Constructor {
+public class EmployeeFactory {
 
     private final static int MIN_WORK_AGE = 1;
     private static int countID = 1;
 
 
     public Employee createEmployee() {
-        String fio = new Random().nextBoolean() ? new MaleFullName().getFio() : new FemaleFullName().getFio();
+        String fio = new Random().nextBoolean() ? MaleFullNameUtils.getFio() : FemaleFullNameUtils.getFio();
         return new Employee(countID++, fio, new Random().nextInt(50) + MIN_WORK_AGE);
     }
 

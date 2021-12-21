@@ -15,10 +15,7 @@ public class EmployeeUtils {
     }
 
     public static void deleteOddFromEnd(List<Employee> employees) {
-        ListIterator<Employee> iterator = employees.listIterator();
-        while (iterator.hasNext()) {
-            iterator.next();
-        }
+        ListIterator<Employee> iterator = employees.listIterator(employees.size());
         while (iterator.hasPrevious()) {
             int checkIndex = iterator.previousIndex();
             iterator.previous();

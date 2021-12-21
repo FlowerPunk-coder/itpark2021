@@ -1,6 +1,6 @@
 package lesson13;
 
-import lesson13.creator.Constructor;
+import lesson13.creator.EmployeeFactory;
 
 import java.util.List;
 import java.util.Set;
@@ -8,7 +8,7 @@ import java.util.Set;
 public class EmployeeRunner {
 
     public static void main(String[] args) {
-        Constructor constructor = new Constructor();
+        EmployeeFactory constructor = new EmployeeFactory();
         Set<Employee> empSet = constructor.createSetEmployees(100);
         List<Employee> empList = constructor.createListEmployees(100);
         EmployeeUtils.printEmployee(empSet, 15);
