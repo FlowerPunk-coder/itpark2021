@@ -27,14 +27,15 @@ public class PhoneNumberUtil {
     }
 
     private static int getOperator() {
+        int code = 0;
         int choice = new Random().nextInt(4);
         switch (choice) {
-            case 0 -> MobileOperators.BEELINE.getBEELINE_CODE();
-            case 1 -> MobileOperators.MTC.getMTC_CODE();
-            case 2 -> MobileOperators.MEGAFON.getMEGAFON_CODE();
-            case 3 -> MobileOperators.TELE2.getTELE2_CODE();
+            case 0 -> code = MobileOperators.BEELINE.getBEELINE_CODE();
+            case 1 -> code = MobileOperators.MTC.getMTC_CODE();
+            case 2 -> code = MobileOperators.MEGAFON.getMEGAFON_CODE();
+            case 3 -> code = MobileOperators.TELE2.getTELE2_CODE();
         }
-        return 0;
+        return code;
     }
 
     private static int getNumber() {
