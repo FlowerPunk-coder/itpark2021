@@ -20,49 +20,7 @@ public class Caller {
         this.phoneNumber = PhoneNumberUtil.getPhoneNumber();
     }
 
-    public void getPartOfCallersList(List<Caller> callers) {
-        callerList = new ArrayList<>();
-        Caller caller;
-        for (int i = 0; i < callers.size() * PART;) {
-            caller = callers.get(new Random().nextInt(callers.size()));
-            if (!caller.equals(this) & !callerList.contains(caller)) {
-                callerList.add(caller);
-                i++;
-            }
-        }
-    }
 
-    public void setCallerSet(Set<Caller> callerSet) {
-        int count = 0;
-        Caller tempCaller;
-        this.callerSet = new HashSet<>();
-        Iterator<Caller> iterator = callerSet.iterator();
-        while (count < callerSet.size() * PART) {
-            if (iterator.hasNext()) {
-                tempCaller = iterator.next();
-                if (!this.equals(tempCaller) && !this.callerSet.contains(tempCaller)) {
-                    if (new Random().nextInt(10) > 5) {
-                        this.callerSet.add(tempCaller);
-                        count++;
-                    }
-                }
-            }
-        }
-    }
-
-    public void setCallerMap(Map<Integer, Caller> callerMap) {
-        int count = 0;
-        int id = 1;
-        Caller tempCaller;
-        this.callerMap = new HashMap<>();
-        while (count < callerMap.size() * PART) {
-            tempCaller = callerMap.get(new Random().nextInt(callerMap.size()));
-            if (!this.equals(tempCaller) && !this.callerMap.containsValue(tempCaller)) {
-                this.callerMap.put(id++, tempCaller);
-                count++;
-            }
-        }
-    }
 
     public List<Caller> getCallerList() {
         return callerList;
@@ -101,4 +59,15 @@ public class Caller {
         return FIO + " " + phoneNumber;
     }
 
+    public void setCallerList(List<Caller> callerList) {
+        this.callerList = callerList;
+    }
+
+    public void setCallerSet(Set<Caller> callerSet) {
+        this.callerSet = callerSet;
+    }
+
+    public void setCallerMap(Map<Integer, Caller> callerMap) {
+        this.callerMap = callerMap;
+    }
 }

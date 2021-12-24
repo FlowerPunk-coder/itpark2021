@@ -9,12 +9,13 @@ import java.util.*;
 public class CallerRunner {
 
     public static void main(String[] args) {
+
+        ListOfCallers listOfCallers = new ListOfCallers(0.1);
         Date startDate = new Date();
         AddressBookAtList atList = new AddressBookAtList();
-        atList.addressBook(3000);
+        atList.addressBook(100);
         for (int i = 0; i < atList.getCallerList().size(); i++) {
-            Caller caller = atList.getCallerList().get(i);
-            caller.getPartOfCallersList(atList.getCallerList());
+            listOfCallers.getPartOfCallersList(atList.getCallerList().get(i), atList.getCallerList());
         }
         //Ищем самые часто встречающиеся контакты
         Map<Caller, Integer> resultMap = new HashMap<>();
@@ -49,7 +50,7 @@ public class CallerRunner {
         AddressBookAtSet atSet = new AddressBookAtSet();
         atSet.addressBook(10);
         for (Caller caller : atSet.getCallerSet()) {
-            caller.setCallerSet(atSet.getCallerSet());
+            listOfCallers.setCallerSet(caller, atSet.getCallerSet());
         }
 
         Date endSet = new Date();
@@ -62,7 +63,7 @@ public class CallerRunner {
         atMap.addressBook(10);
 
         for (Map.Entry<Integer, Caller> entry : atMap.getCallerMap().entrySet()) {
-            entry.getValue().setCallerMap(atMap.getCallerMap());
+           listOfCallers.setCallerMap(entry.getValue(), atMap.getCallerMap());
         }
 
         Date endMap = new Date();
