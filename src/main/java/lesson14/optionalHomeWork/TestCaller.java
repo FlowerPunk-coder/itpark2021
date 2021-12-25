@@ -1,4 +1,4 @@
-package lesson14.opionalHomeWork;
+package lesson14.optionalHomeWork;
 
 import lesson13.creator.FemaleFullNameUtils;
 import lesson13.creator.MaleFullNameUtils;
