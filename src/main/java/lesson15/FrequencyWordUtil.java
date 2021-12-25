@@ -17,7 +17,10 @@ public class FrequencyWordUtil {
 
     public static void frequencyWord(String str) {
         String[] words = str.split("[ ,.!/?]+");
-        Map<String, Integer> map  = Arrays.stream(words).collect(Collectors.toMap(Function.identity(), value -> 1, Integer::sum));
-        map.entrySet().stream().sorted((a, b) -> b.getValue() - a.getValue()).forEach(System.out::println);
+        Map<String, Integer> map  = Arrays.stream(words)
+                .collect(Collectors.toMap(Function.identity(), value -> 1, Integer::sum));
+        map.entrySet().stream()
+                .sorted((a, b) -> b.getValue() - a.getValue())
+                .forEach(System.out::println);
     }
 }
