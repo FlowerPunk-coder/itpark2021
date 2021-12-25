@@ -8,7 +8,6 @@ public class PhoneNumberUtil {
 
     private static Set<String> phoneNumbers = new HashSet<>();
 
-
     public static String getPhoneNumber(){
         String phoneNumber;
         while (true) {

@@ -2,9 +2,11 @@ package lesson14;
 
 import java.util.*;
 
-public record ListOfCallers(double PART) {
+public class ListOfCallersUtils {
 
-    public void getPartOfCallersList(Caller caller, List<Caller> callers) {
+    private final static double PART = 0.1;
+
+    public static void setCallersList(Caller caller, List<Caller> callers) {
         List<Caller> callerList = new ArrayList<>();
         for (int i = 0; i < callers.size() * PART; ) {
             Caller tempCaller = callers.get(new Random().nextInt(callers.size()));
@@ -16,7 +18,7 @@ public record ListOfCallers(double PART) {
         caller.setCallerList(callerList);
     }
 
-    public void setCallerSet(Caller caller, Set<Caller> callers) {
+    public static void setCallersSet(Caller caller, Set<Caller> callers) {
         int count = 0;
         Caller tempCaller;
         Set<Caller> callerSet = new HashSet<>();
@@ -25,17 +27,19 @@ public record ListOfCallers(double PART) {
             if (iterator.hasNext()) {
                 tempCaller = iterator.next();
                 if (!caller.equals(tempCaller) && !callerSet.contains(tempCaller)) {
-                    if (new Random().nextInt(10) > 5) {
+                    if (new Random().nextBoolean()) {
                         callerSet.add(tempCaller);
                         count++;
                     }
                 }
+            } else {
+                count++;
             }
         }
         caller.setCallerSet(callerSet);
     }
 
-    public void setCallerMap(Caller caller, Map<Integer, Caller> callers) {
+    public static void setCallersMap(Caller caller, Map<Integer, Caller> callers) {
         int count = 0;
         int id = 1;
         Caller tempCaller;
