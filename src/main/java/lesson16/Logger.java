@@ -27,7 +27,7 @@ public class Logger {
         this.type = type;
     }
 
-    public void writeLog(String msg) throws IOException, InterruptedException {
+    public void writeLog(String msg) throws IOException {
         Date date = new Date();
         fw.append("<").append(df.format(date)).append(">  <").append(String.valueOf(this.type)).append(">  <")
                 .append(Thread.currentThread().getName()).append(">  <").append(msg).append(">\n");
