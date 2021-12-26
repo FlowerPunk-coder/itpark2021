@@ -16,6 +16,7 @@ public class SecondThread extends Thread {
             } while (LoggerRunner.isTime(startTime));
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
     }
 }
