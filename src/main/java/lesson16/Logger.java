@@ -27,10 +27,10 @@ public class Logger {
         this.type = type;
     }
 
-    public void writeLog(String msg) throws IOException {
+    public void writeLog(String msg) throws IOException, InterruptedException {
         Date date = new Date();
-        fw.append("<").append(df.format(date)).append(">  <").append(String.valueOf(this.type)).append(">  <")
-                .append(Thread.currentThread().getName()).append(">  <").append(msg).append(">\n");
+        String str = "<" + df.format(date) + "> <" + this.type + "> <" + Thread.currentThread().getName() + "> <" + msg + ">\n";
+        fw.write(str);
         fw.flush();
     }
 

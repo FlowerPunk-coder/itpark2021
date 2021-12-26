@@ -24,16 +24,19 @@ public class LoggerRunner {
             } else {
                 log1.writeLog("Ошибка");
             }
-        } while (checkTime(startTime));
+        } while (isTime(startTime));
         BufferedReader br = new BufferedReader(new FileReader(Logger.getPath()));
         while (br.ready()) {
             System.out.println(br.readLine());
         }
     }
 
-    public static boolean checkTime(long startTime) throws InterruptedException {
+    public static boolean isTime(long startTime) throws InterruptedException {
         Thread.sleep(new Random().nextInt(5000));
         long stopTime = System.currentTimeMillis();
-        return ((stopTime - startTime) / 1000) < 60;
+        if (((stopTime - startTime) / 1000) >= 60) {
+            return false;
+        }
+        return true;
     }
 }

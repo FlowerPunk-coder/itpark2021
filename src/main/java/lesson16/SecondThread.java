@@ -13,7 +13,7 @@ public class SecondThread extends Thread {
             String str = "Варн";
             do {
                 log.writeLog(str);
-            } while (LoggerRunner.checkTime(startTime));
+            } while (LoggerRunner.isTime(startTime));
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }

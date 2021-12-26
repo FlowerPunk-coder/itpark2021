@@ -13,10 +13,10 @@ public class FirstThread extends Thread {
             long startTime = System.currentTimeMillis();
             Thread.currentThread().setName("Первый поток");
             Logger log = new Logger(TypeMsg.DEBUG);
-            String str = "Дебаг";
+            String str = "дебаг";
             do {
                 log.writeLog(str);
-            } while (LoggerRunner.checkTime(startTime));
+            } while (LoggerRunner.isTime(startTime));
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }

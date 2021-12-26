@@ -13,7 +13,7 @@ public class ThirdThread extends Thread {
             String str = "Трайс";
             do {
                 log.writeLog(str);
-            } while (LoggerRunner.checkTime(startTime));
+            } while (LoggerRunner.isTime(startTime));
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
