@@ -10,12 +10,9 @@ public class LoggerRunner {
     public static void main(String[] args) throws IOException, InterruptedException {
 
         long startTime = System.currentTimeMillis();
-        FirstThread first = new FirstThread();
-        SecondThread second = new SecondThread();
-        ThirdThread third = new ThirdThread();
-        first.start();
-        second.start();
-        third.start();
+        new FirstThread().start();
+        new SecondThread().start();
+        new ThirdThread().start();
         Logger log = new Logger(TypeMsg.INFO);
         Logger log1 = new Logger(TypeMsg.ERROR);
         do {
