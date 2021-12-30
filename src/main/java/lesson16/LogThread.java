@@ -1,5 +1,7 @@
 package lesson16;
 
+import lesson16.enums.LogLevel;
+
 import java.io.IOException;
 
 public class LogThread extends Thread {

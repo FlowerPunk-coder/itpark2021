@@ -1,5 +1,7 @@
 package lesson16;
 
+import lesson16.enums.LogLevel;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DateFormat;

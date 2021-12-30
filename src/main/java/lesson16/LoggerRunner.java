@@ -1,5 +1,7 @@
 package lesson16;
 
+import lesson16.enums.LogLevel;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -22,9 +24,10 @@ public class LoggerRunner {
                 log1.writeLog("Ошибка");
             }
         } while (isTime(startTime));
-        BufferedReader br = new BufferedReader(new FileReader(Logger.getPath()));
-        while (br.ready()) {
-            System.out.println(br.readLine());
+        try (BufferedReader br = new BufferedReader(new FileReader(Logger.getPath()))) {
+            while (br.ready()) {
+                System.out.println(br.readLine());
+            }
         }
         Logger.getFw().close();
     }

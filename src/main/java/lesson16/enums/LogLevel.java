@@ -1,4 +1,4 @@
-package lesson16;
+package lesson16.enums;
 
 public enum LogLevel {
 
