@@ -10,11 +10,11 @@ public class LoggerRunner {
     public static void main(String[] args) throws IOException, InterruptedException {
 
         long startTime = System.currentTimeMillis();
-        new FirstThread().start();
-        new SecondThread().start();
-        new ThirdThread().start();
-        Logger log = new Logger(TypeMsg.INFO);
-        Logger log1 = new Logger(TypeMsg.ERROR);
+        new LogThread("Первый поток", LogLevel.DEBUG).start();
+        new LogThread("Второй поток", LogLevel.WARN).start();
+        new LogThread("Третий поток", LogLevel.TRACE).start();
+        Logger log = new Logger(LogLevel.INFO);
+        Logger log1 = new Logger(LogLevel.ERROR);
         do {
             if (new Random().nextBoolean()) {
                 log.writeLog("Тестовое сообщение");
@@ -26,6 +26,7 @@ public class LoggerRunner {
         while (br.ready()) {
             System.out.println(br.readLine());
         }
+        Logger.getFw().close();
     }
 
     public static boolean isTime(long startTime) throws InterruptedException {

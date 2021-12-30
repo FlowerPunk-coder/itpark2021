@@ -2,20 +2,22 @@ package lesson16;
 
 import java.io.IOException;
 
-public class FirstThread extends Thread {
+public class LogThread extends Thread {
 
-    public FirstThread() {
+    LogLevel logLevel;
+
+    public LogThread(String name, LogLevel logLevel) {
+        this.setName(name);
+        this.logLevel = logLevel;
     }
 
     @Override
     public void run() {
         try {
             long startTime = System.currentTimeMillis();
-            Thread.currentThread().setName("Первый поток");
-            Logger log = new Logger(TypeMsg.DEBUG);
-            String str = "дебаг";
+            Logger log = new Logger(logLevel);
             do {
-                log.writeLog(str);
+                log.writeLog(logLevel.getName());
             } while (LoggerRunner.isTime(startTime));
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();

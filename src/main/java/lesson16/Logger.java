@@ -8,10 +8,10 @@ import java.util.Date;
 
 public class Logger {
 
-    private TypeMsg type;
+    private LogLevel type;
     private static FileWriter fw;
     private static DateFormat df;
-    private static String path = "F:/test/log.txt";
+    private static String path = "C:\\Users\\User\\Desktop\\Макс\\test.txt";
 
 
     static {
@@ -23,7 +23,7 @@ public class Logger {
         df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
     }
 
-    public Logger(TypeMsg type) {
+    public Logger(LogLevel type) {
         this.type = type;
     }
 
@@ -36,5 +36,9 @@ public class Logger {
 
     public static String getPath() {
         return path;
+    }
+
+    public static FileWriter getFw() {
+        return fw;
     }
 }
