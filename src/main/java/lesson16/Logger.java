@@ -13,8 +13,7 @@ public class Logger {
     private LogLevel type;
     private static FileWriter fw;
     private static DateFormat df;
-    private static String path = "C:\\Users\\User\\Desktop\\Макс\\test.txt";
-
+    private static String path = "F:/test/log.txt";
 
     static {
         try {
@@ -29,9 +28,10 @@ public class Logger {
         this.type = type;
     }
 
-    public void writeLog(String msg) throws IOException, InterruptedException {
+    public void writeLog(String msg) throws IOException {
         Date date = new Date();
-        String str = "<" + df.format(date) + "> <" + this.type + "> <" + Thread.currentThread().getName() + "> <" + msg + ">\n";
+        String str = "<" + df.format(date) + "> <" + this.type + "> <"
+                + Thread.currentThread().getName() + "> <" + msg + ">\n";
         fw.write(str);
         fw.flush();
     }
@@ -40,7 +40,7 @@ public class Logger {
         return path;
     }
 
-    public static FileWriter getFw() {
+    public static FileWriter getFileWriter() {
         return fw;
     }
 }

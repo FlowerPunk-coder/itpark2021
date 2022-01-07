@@ -6,30 +6,33 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class LoggerRunner {
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
         long startTime = System.currentTimeMillis();
-        new LogThread("Первый поток", LogLevel.DEBUG).start();
-        new LogThread("Второй поток", LogLevel.WARN).start();
-        new LogThread("Третий поток", LogLevel.TRACE).start();
-        Logger log = new Logger(LogLevel.INFO);
-        Logger log1 = new Logger(LogLevel.ERROR);
-        do {
-            if (new Random().nextBoolean()) {
-                log.writeLog("Тестовое сообщение");
-            } else {
-                log1.writeLog("Ошибка");
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        try {
+            executorService.execute(new LogThread(LogLevel.DEBUG));
+            executorService.execute(new LogThread(LogLevel.WARN));
+            executorService.execute(new LogThread(LogLevel.TRACE));
+            executorService.execute(new LogThread(LogLevel.INFO));
+            executorService.execute(new LogThread(LogLevel.ERROR));
+
+            while (isTime(startTime));
+
+            try (BufferedReader br = new BufferedReader(new FileReader(Logger.getPath()))) {
+                while (br.ready()) {
+                    System.out.println(br.readLine());
+                }
             }
-        } while (isTime(startTime));
-        try (BufferedReader br = new BufferedReader(new FileReader(Logger.getPath()))) {
-            while (br.ready()) {
-                System.out.println(br.readLine());
-            }
+        } finally {
+            executorService.shutdown();
+            Logger.getFileWriter().close();
         }
-        Logger.getFw().close();
     }
 
     public static boolean isTime(long startTime) throws InterruptedException {

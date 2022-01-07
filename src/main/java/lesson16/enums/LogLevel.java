@@ -2,11 +2,11 @@ package lesson16.enums;
 
 public enum LogLevel {
 
-    ERROR("Ошибка"),
+    ERROR( "Ошибка"),
     WARN("Предупреждение"),
     INFO("Информация"),
     DEBUG("Обработка"),
-    TRACE("Трасировка");
+    TRACE("Трассировка");
 
     private String name;
 
