@@ -4,12 +4,14 @@ import lesson16.enums.LogLevel;
 
 import java.io.IOException;
 
-public class LogThread implements Runnable {
+public class LogThread extends Thread {
 
     private LogLevel logLevel;
 
-    public LogThread(LogLevel logLevel) {
+    public LogThread(String name, LogLevel logLevel) {
+        setName(name);
         this.logLevel = logLevel;
+
     }
 
     @Override
