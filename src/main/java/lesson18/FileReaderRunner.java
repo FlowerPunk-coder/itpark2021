@@ -7,12 +7,12 @@ public class FileReaderRunner {
     public static void main(String[] args) {
 
         new Thread(() ->
-            FileReaderRunner.fileToFile(FileReaderRunner
+            FileReaderRunner.fileToFiles(FileReaderRunner
                     .class
                     .getResourceAsStream("/text.txt"), "f:/test/text/text.txt")).start();
     }
 
-    public static void fileToFile(InputStream in, String path) {
+    public static void fileToFiles(InputStream in, String path) {
         try (BufferedReader bR = new BufferedReader(new InputStreamReader((in)))) {
             String[] fullPath = path.split("\\.");
             int i = 1;
