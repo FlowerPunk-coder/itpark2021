@@ -9,27 +9,23 @@ public class LoggerRunner {
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
-        try {
-            long startTime = System.currentTimeMillis();
-            new LogThread("Первый поток", LogLevel.DEBUG).start();
-            new LogThread("Второй поток", LogLevel.WARN).start();
-            new LogThread("Третий поток", LogLevel.TRACE).start();
-            Logger log = new Logger(LogLevel.INFO);
-            Logger log1 = new Logger(LogLevel.ERROR);
-            do {
-                if (new Random().nextBoolean()) {
-                    log.writeLog("Тестовое сообщение");
-                } else {
-                    log1.writeLog("Ошибка");
-                }
-            } while (isTime(startTime));
-            try (BufferedReader br = new BufferedReader(new FileReader(Logger.getPath()))) {
-                while (br.ready()) {
-                    System.out.println(br.readLine());
-                }
+        long startTime = System.currentTimeMillis();
+        new LogThread("Первый поток", LogLevel.DEBUG).start();
+        new LogThread("Второй поток", LogLevel.WARN).start();
+        new LogThread("Третий поток", LogLevel.TRACE).start();
+        Logger log = new Logger(LogLevel.INFO);
+        Logger log1 = new Logger(LogLevel.ERROR);
+        do {
+            if (new Random().nextBoolean()) {
+                log.writeLog("Тестовое сообщение");
+            } else {
+                log1.writeLog("Ошибка");
             }
-        } finally {
-            Logger.getFileWriter().close();
+        } while (isTime(startTime));
+        try (BufferedReader br = new BufferedReader(new FileReader(Logger.getPath()))) {
+            while (br.ready()) {
+                System.out.println(br.readLine());
+            }
         }
     }
 
