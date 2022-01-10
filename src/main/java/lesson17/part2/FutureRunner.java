@@ -30,6 +30,7 @@ public class FutureRunner {
                     .average().orElse(-1))
                     .thenApplyAsync(avg -> ("Среднее арифметическое значение " + avg), executorService);
 
+            CompletableFuture.allOf(futureMin, futureMax, futureAvg).get();
             System.out.println(futureMin.get());
             System.out.println(futureMax.get());
             System.out.println(futureAvg.get());
