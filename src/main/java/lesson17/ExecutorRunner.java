@@ -32,7 +32,6 @@ public class ExecutorRunner {
             }
         } finally {
             executorService.shutdown();
-            Logger.getFileWriter().close();
         }
     }
 }
