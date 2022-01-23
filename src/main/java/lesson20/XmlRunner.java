@@ -1,8 +1,11 @@
 package lesson20;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.xml.bind.JAXB;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
+import lesson20.factory.Employee;
 import lesson20.factory.EmployeeFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -22,6 +25,8 @@ import java.util.List;
 public class XmlRunner {
 
     private static File xmlFile = new File("F:/test/XMLemployees.xml");
+    private static File jsonFile = new File("F:/test/JSONemployees.json");
+
 
     public static void main(String[] args) throws Throwable {
 
@@ -37,6 +42,8 @@ public class XmlRunner {
                System.out.println(name);
            }
         }
+        xmlToJson(xmlFile, jsonFile);
+        getEmployeeOdd(jsonFile);
     }
 
     private static void writeToXml(Company company, File file) throws JAXBException {
@@ -63,5 +70,23 @@ public class XmlRunner {
             System.out.println("oшибка: " + ex.getMessage());
         }
         return listOfEmployees;
+    }
+
+    private static void xmlToJson(File xmlFile, File jsonFile) throws IOException {
+        Company company = JAXB.unmarshal(xmlFile, Company.class);
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.writerWithDefaultPrettyPrinter().writeValue(jsonFile, company);
+    }
+
+    private static void getEmployeeOdd(File file) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Company company = objectMapper.readValue(file, Company.class);
+        int i = 1;
+        for (Employee employee : company.getEmployees()) {
+            if (i % 2 != 0) {
+                System.out.println(employee);
+            }
+            i++;
+        }
     }
 }

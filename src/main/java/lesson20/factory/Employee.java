@@ -2,8 +2,12 @@ package lesson20.factory;
 
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
+@ToString
+@NoArgsConstructor
 public class Employee {
 
     private int id;
@@ -11,10 +15,6 @@ public class Employee {
     private String login;
     private Department department;
     private Job job;
-
-    public Employee() {
-
-    }
 
     public Employee(int id, String fio, Department department, Job job) {
         this.id = id;
