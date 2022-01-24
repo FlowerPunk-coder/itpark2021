@@ -4,7 +4,6 @@ public class ReverseMatrix {
 
     private static double det;
     private MainMatrix mtx = new MainMatrix();
-    private DriverMatrix dM = new DriverMatrix();
 
     public ReverseMatrix() {
 
@@ -36,11 +35,13 @@ public class ReverseMatrix {
                 }
             }
         }
-        resultMatrix = dM.transpon(resultMatrix);
+        mtx.transpon(resultMatrix);
         mtx.printWithDet(resultMatrix, det);
         System.out.println("Выполняю проверку...");
-        resultMatrix = dM.multiplicationMatrices(matrix, resultMatrix);
-        resultMatrix = dM.multiplyAtConst(resultMatrix, 1/det);
+        mtx.setValues(matrix);
+        resultMatrix = mtx.multiplicationMatrices(resultMatrix);
+        mtx.setValues(resultMatrix);
+        resultMatrix = mtx.multiplyAtConst( 1/det);
         mtx.printMatrix(resultMatrix);
     }
 
@@ -48,7 +49,7 @@ public class ReverseMatrix {
         if (size == 2) {
             det = (matrixOne[0][0] * matrixOne[1][1]) - (matrixOne[0][1] * matrixOne[1][0]);
         } else {
-            det = matrixOne[0][0] * matrixOne[1][1] * matrixOne[2][2] + //диагональ 0.0-2.0
+            det = matrixOne[0][0] * matrixOne[1][1] * matrixOne[2][2] + //диагональ 0.0-2.2
                     matrixOne[0][1] * matrixOne[1][2] * matrixOne[2][0] + //первый треугольник (верхний)
                     matrixOne[0][2] * matrixOne[1][0] * matrixOne[2][1] - //второй треугольник (нижний) переход к минусу
                     matrixOne[0][2] * matrixOne[1][1] * matrixOne[2][0] - //диагональ 0.2-2.0

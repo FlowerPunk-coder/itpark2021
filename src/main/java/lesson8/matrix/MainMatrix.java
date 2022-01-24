@@ -1,98 +1,28 @@
 package lesson8.matrix;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Arrays;
 import java.util.Scanner;
 
+
 public class MainMatrix {
 
-    private static String sign;
-    private double constanta;
-    private double[][] matrixOne;
-    private double[][] matrixTwo;
-    private double[][] resultMatrix;
-    private DriverMatrix dm;
+    @Getter
+    @Setter
+    private double[][] values;
 
     public MainMatrix() {
 
     }
 
-    public void choiceOfProgram() {
-        Scanner scanner = new Scanner(System.in);
-        dm = new DriverMatrix();
-        System.out.println("Добро пожаловать в программу работы с матрицами");
-        while (true) {
-            System.out.println("--------------");
-            System.out.println("""
-                    Выберите действие:
-                    1 - сложить матрицы
-                    2 - вычесть матрицы
-                    3 - умножить матрицы
-                    4 - умножить матрицу на число
-                    5 - найти обратную матрицу
-                    6 - возвести матрицу в степень
-                    7 - транспонирование матрицы
-                    0 - выйти из программы""");
-            double choice = checkValue(scanner);
-            if (choice == 0) {
-                break;
-            }
-            try {
-                if (choice > 0 & choice < 8) {
-                    preStart(scanner, choice);
-                }
-                if (choice == 1) {
-                    sign = " + ";
-                    resultMatrix = dm.summaMatrices(matrixOne, matrixTwo);
-                    printResult(matrixOne, matrixTwo, resultMatrix);
-                } else if (choice == 2) {
-                    sign = " - ";
-                    resultMatrix = dm.subtractMatrices(matrixOne, matrixTwo);
-                    printResult(matrixOne, matrixTwo, resultMatrix);
-                } else if (choice == 3) {
-                    sign = " * ";
-                    System.out.println("Выполняю умножение введенных матриц...");
-                    resultMatrix = dm.multiplicationMatrices(matrixOne, matrixTwo);
-                    printResult(matrixOne, matrixTwo, resultMatrix);
-                } else if (choice == 4) {
-                    System.out.print("Введите число на которое нужно умножить матрицу: ");
-                    constanta = checkValue(scanner);
-                    printMatrix(dm.multiplyAtConst(matrixOne, constanta));
-                } else if (choice == 5) {
-                    ReverseMatrix rM = new ReverseMatrix();
-                    rM.reverseMatrix(matrixOne);
-                } else if (choice == 6) {
-                    System.out.print("Введите степень: ");
-                    constanta = checkValue(scanner);
-                    printMatrix(dm.pow(matrixOne, constanta));
-                } else if (choice == 7) {
-                    printMatrix(dm.transpon(matrixOne));
-                } else {
-                    System.out.println("Введено некорректное значение");
-                }
-            } catch (InterruptedException ex) {
-                System.out.println("Что-то пошло не так -> " + ex.getMessage());
-            }
-        }
-        scanner.close();
-    }
-
-    public void preStart(Scanner scanner, double choice) throws InterruptedException {
-        if (choice <= 3) {
-            System.out.println("Первая матрица");
-            matrixOne = createMatrix(scanner);
-            System.out.println("Вторая матрица");
-            matrixTwo = createMatrix(scanner);
-        } else {
-            matrixOne = createMatrix(scanner);
-        }
-    }
-
     public double[][] createMatrix(Scanner scanner) throws InterruptedException {
         System.out.println("Введите размер матрицы в формате m x n");
         System.out.print("Введите количество строк (m): ");
-        double m = checkValue(scanner);
+        double m = MatrixRunner.checkValue(scanner);
         System.out.print("Введите количество столбцов (n): ");
-        double n = checkValue(scanner);
+        double n = MatrixRunner.checkValue(scanner);
         double[][] tempMatrix = new double[(int) m][(int) n];
         System.out.println("""
                 Введите значения матрицы.
@@ -123,27 +53,101 @@ public class MainMatrix {
     }
 
     public void printMatrix(double[][] matrix) {
-        for (int i = 0; i < matrix.length; i++) {
-            System.out.println(Arrays.toString(matrix[i]));
+        for (double[] doubles : matrix) {
+            System.out.println(Arrays.toString(doubles));
         }
         System.out.println("------------");
     }
 
-    public void printResult(double[][] matrixOne, double[][] matrixTwo, double[][] resultMatrix) {
-        if (matrixOne == null || matrixTwo == null) {
-            System.out.println("Матрицы не заполнены");
-            return;
+    public double[][] summaMatrices(double[][] matrixTwo) throws InterruptedException {
+        double[][] resultMatrix = new double[values.length][values[0].length];
+        if (values.length != matrixTwo.length || values[0].length != matrixTwo[0].length) {
+            System.out.println("Матрицы имеют разный размер. Сложение невозможно.");
+            return resultMatrix;
         }
-        System.out.println("Результат получен:");
-        for (int i = 0; i < matrixOne.length; i++) {
-            if (i == Math.round(matrixOne.length / 2)) {
-                System.out.println(Arrays.toString(matrixOne[i]) + sign + Arrays.toString(matrixTwo[i]) +
-                        " = " + Arrays.toString(resultMatrix[i]));
-            } else {
-                System.out.println(Arrays.toString(matrixOne[i]) + "   " + Arrays.toString(matrixTwo[i]) +
-                        "   " + Arrays.toString(resultMatrix[i]));
+        System.out.println("Выполняю сложение введеных матриц...");
+        for (int i = 0; i < values.length; i++) {
+            for (int j = 0; j < values[i].length; j++) {
+                resultMatrix[i][j] = values[i][j] + matrixTwo[i][j];
             }
         }
+        Thread.sleep(500);
+        return resultMatrix;
+    }
+
+    public double[][] subtractMatrices(double[][] matrixTwo) throws InterruptedException {
+        double[][] resultMatrix = new double[values.length][values[0].length];
+        if (values.length != matrixTwo.length || values[0].length != matrixTwo[0].length) {
+            System.out.println("Матрицы имеют разный размер. Вычитание невозможно.");
+            return resultMatrix;
+        }
+        System.out.println("Выполняю вычитание введеных матриц...");
+        for (int i = 0; i < values.length; i++) {
+            for (int j = 0; j < values[i].length; j++) {
+                resultMatrix[i][j] = values[i][j] - matrixTwo[i][j];
+            }
+        }
+        Thread.sleep(500);
+        return resultMatrix;
+    }
+
+    public double[][] multiplicationMatrices(double[][] matrixTwo) throws InterruptedException {
+        double[][] resultMatrix = new double[values.length][matrixTwo[0].length];
+        if (values[0].length != matrixTwo.length) {
+            System.out.println("Для умножения, количество столбцов первой матрицы " +
+                    "должны быть равны количеству строк второй матрицы");
+            return resultMatrix;
+        }
+        System.out.println("Выполняю умножение введенных матриц...");
+        for (int i = 0; i < values.length; i++) {
+            for (int j = 0; j < matrixTwo[0].length; j++) {
+                int temp = 0;
+                for (int l = 0; l < values[0].length; l++) {
+                    temp += values[i][l] * matrixTwo[l][j];
+                }
+                resultMatrix[i][j] = temp;
+            }
+        }
+        Thread.sleep(500);
+        return resultMatrix;
+    }
+
+    public double[][] multiplyAtConst(double constanta) throws InterruptedException {
+        System.out.println("Выполняю умножение матрицы на число...");
+        Thread.sleep(500);
+        double[][] resultMatrix = new double[values.length][values[0].length];
+        for (int i = 0; i < values.length; i++) {
+            for (int j = 0; j < values[0].length; j++) {
+                resultMatrix[i][j] = constanta * values[i][j];
+            }
+        }
+        System.out.println("Результат умножения:");
+        return resultMatrix;
+    }
+
+    public double[][] transpon(double[][] matrix) throws InterruptedException {
+        double temp;
+        System.out.println("Выполняю транспонирование матрицы...");
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (i < j) {
+                    temp = matrix[i][j];
+                    matrix[i][j] = matrix[j][i];
+                    matrix[j][i] = temp;
+                }
+            }
+        }
+        Thread.sleep(500);
+        return matrix;
+    }
+
+    public double[][] pow(double x) throws InterruptedException {
+        double[][] resultMatrix = values;
+        System.out.println("Возвожу матрицу в степень " + (int) x + "...");
+        for (int i = 0; i < (int) x - 1; i++) {
+            resultMatrix = multiplicationMatrices(resultMatrix);
+        }
+        return resultMatrix;
     }
 
     public void printWithDet(double[][] matrixOne, double det) {
@@ -170,14 +174,7 @@ public class MainMatrix {
         }
     }
 
-    public double checkValue(Scanner scanner) {
-        while (!scanner.hasNextDouble()) {
-            scanner.next();
-            System.out.println("Для ввода доступны только цифры");
-        }
-        return scanner.nextDouble();
-    }
+
 
 }
-
 
