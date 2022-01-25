@@ -34,7 +34,7 @@ public class MatrixRunner {
             }
             try {
                 if (choice > 0 & choice < 8) {
-                    mainMatrix = preStart(scanner, choice);
+                    mainMatrix = preStart(scanner);
                 }
                 if (choice == 1) {
                     mainMatrix.printMatrix(
@@ -74,7 +74,7 @@ public class MatrixRunner {
         scanner.close();
     }
 
-    public static MainMatrix preStart(Scanner scanner, double choice) throws InterruptedException {
+    public static MainMatrix preStart(Scanner scanner) throws InterruptedException {
         MainMatrix mM = new MainMatrix();
         mM.setValues(mM.createMatrix(scanner));
         return mM;

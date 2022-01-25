@@ -23,14 +23,18 @@ public class MainMatrix {
         double m = MatrixRunner.checkValue(scanner);
         System.out.print("Введите количество столбцов (n): ");
         double n = MatrixRunner.checkValue(scanner);
-        double[][] tempMatrix = new double[(int) m][(int) n];
         System.out.println("""
                 Введите значения матрицы.
                 Значения вводите в одну строку разделяя цифры запятой. Например: 1,2,-3,4 и т.д.
                 Заполнение матрицы происходит строками.
                 Для этой матрицы количество значений должно быть равно:""" + " " + (int) (m * n));
-        String[] values = scanner.next().split(",");
+        String readInput = "";
+        while (readInput.equals("")) {
+            readInput = scanner.nextLine();
+        }
+        String[] values = readInput.split("\\D+");
         System.out.println("Заполняю матрицу...");
+        double[][] tempMatrix = new double[(int) m][(int) n];
         Thread.sleep(500);
         int k = 0;
         for (int i = 0; i < tempMatrix.length; i++) {
