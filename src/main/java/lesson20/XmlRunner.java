@@ -5,7 +5,7 @@ import jakarta.xml.bind.JAXB;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
-import lesson20.factory.Employee;
+import lesson20.models.Employee;
 import lesson20.factory.EmployeeFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
@@ -26,6 +26,7 @@ public class XmlRunner {
 
     private static File xmlFile = new File("F:/test/XMLemployees.xml");
     private static File jsonFile = new File("F:/test/JSONemployees.json");
+    private static XPath xPath = XPathFactory.newInstance().newXPath();
 
 
     public static void main(String[] args) throws Throwable {
@@ -35,15 +36,19 @@ public class XmlRunner {
         writeToXml(myCompany, xmlFile);
         try (InputStream inputStream = new FileInputStream(xmlFile)) {
             Document xmlDocument = getXml(inputStream);
-            XPath xPath = XPathFactory.newInstance().newXPath();
-            double avg = (Double) xPath.compile("sum(//employee/job/salary) div count(//employee/job/salary)").evaluate(xmlDocument, XPathConstants.NUMBER);
-            List<String> names = getEmployeeMoreThanAvgSalary(xmlDocument, xPath, avg);
-           for (String name : names) {
+            double avgSalary = calcAvgSalary(xmlDocument);
+            List<String> names = getEmployeeMoreThanAvgSalary(xmlDocument, avgSalary);
+            for (String name : names) {
                System.out.println(name);
            }
         }
         xmlToJson(xmlFile, jsonFile);
-        getEmployeeOdd(jsonFile);
+        printEmployeeOdd(jsonFile);
+    }
+
+    public static double calcAvgSalary(Document document) throws XPathExpressionException {
+        return (Double) xPath.compile("sum(//employee/job/salary) div count(//employee/job/salary)").evaluate(document, XPathConstants.NUMBER);
+
     }
 
     private static void writeToXml(Company company, File file) throws JAXBException {
@@ -59,7 +64,7 @@ public class XmlRunner {
         return builder.parse(inputStream);
     }
 
-    private static List<String> getEmployeeMoreThanAvgSalary(Document document, XPath xPath, double salary) {
+    private static List<String> getEmployeeMoreThanAvgSalary(Document document, double salary) {
         List<String> listOfEmployees = new ArrayList<>();
         try {
             XPathExpression xPathExpression = xPath.compile("//employee[job[salary[1]>" + salary + "]]/fio/text()");
@@ -78,7 +83,7 @@ public class XmlRunner {
         objectMapper.writerWithDefaultPrettyPrinter().writeValue(jsonFile, company);
     }
 
-    private static void getEmployeeOdd(File file) throws IOException {
+    private static void printEmployeeOdd(File file) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         Company company = objectMapper.readValue(file, Company.class);
         int i = 1;

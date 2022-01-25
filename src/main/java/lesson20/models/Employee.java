@@ -1,4 +1,4 @@
-package lesson20.factory;
+package lesson20.models;
 
 
 import lombok.Data;

@@ -2,8 +2,11 @@ package lesson20.factory;
 
 import lesson13.creator.FemaleFullNameUtils;
 import lesson13.creator.MaleFullNameUtils;
-import lesson20.factory.enums.NameOfDepartment;
-import lesson20.factory.enums.NameOfPost;
+import lesson20.models.Department;
+import lesson20.models.Employee;
+import lesson20.models.Job;
+import lesson20.models.enums.NameOfDepartment;
+import lesson20.models.enums.NameOfPost;
 import lombok.Setter;
 
 import java.util.ArrayList;

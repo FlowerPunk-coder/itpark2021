@@ -1,4 +1,4 @@
-package lesson20.factory.enums;
+package lesson20.models.enums;
 
 public enum NameOfPost {
 
