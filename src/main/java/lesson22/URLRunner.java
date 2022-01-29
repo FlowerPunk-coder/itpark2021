@@ -37,7 +37,7 @@ public class URLRunner {
                          Сделайте выбор:
                          1 - Узнать погоду в городе \u00b0C
                          2 - Узнать погоду в городе \u00b0F
-                         3 - Узнать погоду в городе К""");
+                         3 - Узнать погоду в городе  К""");
                 int choice = checkValue(new Scanner(System.in));
                 if (choice > 0 & choice < 4) {
                     System.out.print("Введите название города, погоду в котором хотите узнать: ");
