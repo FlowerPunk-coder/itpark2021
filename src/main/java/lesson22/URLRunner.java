@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
@@ -21,6 +20,14 @@ public class URLRunner {
     @Setter
     @Getter
     private static String apiKey;
+    private final static int NORTH_MIN = 351;
+    private final static int NORTH_MAX = 10;
+    private final static int NORTH_EAST_MAX = 80;
+    private final static int EAST_MAX = 100;
+    private final static int SOUTH_EAST_MAX = 170;
+    private final static int SOUTH_MAX = 190;
+    private final static int SOUTH_WEST_MAX = 260;
+    private final static int WEST_MAX = 280;
 
     public static void main(String[] args) throws IOException {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
@@ -82,19 +89,19 @@ public class URLRunner {
     }
 
     public static String getWindDirection(int direction) {
-        if (direction >= 351 || direction <= 10) {
+        if (direction >= NORTH_MIN || direction <= NORTH_MAX) {
             return "северный";
-        } else if (direction <= 80) {
+        } else if (direction <= NORTH_EAST_MAX) {
             return "cеверо-восточный";
-        } else if (direction <= 100) {
+        } else if (direction <= EAST_MAX) {
             return "восточный";
-        } else if (direction <= 170) {
+        } else if (direction <= SOUTH_EAST_MAX) {
             return "юго-восточный";
-        } else if (direction <= 190) {
+        } else if (direction <= SOUTH_MAX) {
             return "южный";
-        } else if (direction <= 260) {
+        } else if (direction <= SOUTH_WEST_MAX) {
             return "юго-западный";
-        } else if (direction <= 280) {
+        } else if (direction <= WEST_MAX) {
             return "западный";
         } else {
             return "северо-западный";
