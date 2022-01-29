@@ -1,50 +1,68 @@
 package lesson22;
 
 import com.jayway.jsonpath.JsonPath;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class URLRunner {
 
+    @Setter
+    @Getter
+    private static String apiKey;
+
     public static void main(String[] args) throws IOException {
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            System.out.println("""
-                    Добро пожаловать в программу 'Погода в городе'
-                     Сделайте выбор:
-                     1 - Узнать погоду в городе \u00b0C
-                     2 - Узнать погоду в городе \u00b0F
-                     3 - Узнать погоду в городе К""");
-            int choice = checkValue(scanner);
-            if (choice > 0 & choice < 4) {
-                System.out.print("Введите название города, погоду в котором хотите узнать:");
-                if (choice == 1) {
-                    printTemperatureInCity(scanner.next(), "metric");
-                    break;
-                } else if (choice == 2) {
-                    printTemperatureInCity(scanner.next(), "imperial");
-                    break;
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+            while (true) {
+                System.out.println("""
+                        Добро пожаловать в программу 'Погода в городе'
+                         Сделайте выбор:
+                         1 - Узнать погоду в городе \u00b0C
+                         2 - Узнать погоду в городе \u00b0F
+                         3 - Узнать погоду в городе К""");
+                int choice = checkValue(new Scanner(System.in));
+                if (choice > 0 & choice < 4) {
+                    System.out.print("Введите название города, погоду в котором хотите узнать: ");
+                    if (choice == 1) {
+                        printTemperatureInCity(br.readLine(), "metric");
+                        break;
+                    } else if (choice == 2) {
+                        printTemperatureInCity(br.readLine(), "imperial");
+                        break;
+                    } else {
+                        printTemperatureInCity(br.readLine(), "");
+                        break;
+                    }
                 } else {
-                    printTemperatureInCity(scanner.next(), "");
-                    break;
+                    System.out.println("Некорректный ввод.");
                 }
-            } else {
-                System.out.println("Некорректный ввод.");
             }
         }
-        scanner.close();
     }
 
 
+
     public static void printTemperatureInCity(String cityName, String range) {
-        try {
-            URI uri = new URI("https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=0efe8cfe3bd6dc2812dbd0200e1db284&units=" + range);
+        try (BufferedReader br = new BufferedReader(new InputStreamReader
+                    (Objects.requireNonNull(URLRunner.class.getResourceAsStream("/apikey.txt"))))) {
+            setApiKey(br.readLine());
+            String formattedName = cityName;
+            if (cityName.contains(" ")) {
+                formattedName = cityName.replaceAll(" ", "%20");
+            }
+            URI uri = new URI("https://api.openweathermap.org/data/2.5/weather?q="
+                    + formattedName + "&appid=" + getApiKey() + "&units=" + range);
             URL url = uri.toURL();
             URLConnection urlConnection = url.openConnection();
             String jsonString = new Scanner(urlConnection.getInputStream()).nextLine();
@@ -55,12 +73,10 @@ public class URLRunner {
             int tempoFeel = (int) Math.round(temp.get(1));
             String sing = getSing(range);
             String singSpeed = getSingSpeed(range);
-            System.out.printf("Температура воздуха в городе %s: %+d%s, ощущается как %+d%s.\n", cityName, tempo, sing,  tempoFeel, sing);
+            System.out.printf("Температура воздуха в городе %s: %+d%s, ощущается как %+d%s.\n", cityName, tempo, sing, tempoFeel, sing);
             System.out.printf("Ветер %s %s %s.\n", getWindDirection(windDir.get(0)), windSpd.get(0), singSpeed);
 
-        }catch (IOException ex) {
-            System.out.println("Такой город не обнаружен.");
-        } catch (URISyntaxException ex) {
+        }catch (IOException | URISyntaxException ex) {
             System.out.println("Что-то пошло не так -> " + ex.getMessage());
         }
     }
