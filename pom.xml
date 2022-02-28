@@ -29,9 +29,12 @@
         <jackson-databind.version>2.13.1</jackson-databind.version>
         <junit.version>4.13.2</junit.version>
         <jackson-core.version>2.13.1</jackson-core.version>
-        <json-path.version>2.6.0</json-path.version>
-        <slf4j-api.version>1.7.33</slf4j-api.version>
-        <slf4j-simple.version>1.7.33</slf4j-simple.version>
+        <json-path.version>2.7.0</json-path.version>
+        <slf4j-api.version>1.7.36</slf4j-api.version>
+        <slf4j-simple.version>1.7.36</slf4j-simple.version>
+        <hibernate-core.version>5.6.1.Final</hibernate-core.version>
+        <mysql-connector-java.version>8.0.26</mysql-connector-java.version>
+        <opencsv.version>5.5.2</opencsv.version>
     </properties>
 
     <dependencies>
@@ -100,6 +103,16 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>${slf4j-simple.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql-connector-java.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>${opencsv.version}</version>
         </dependency>
     </dependencies>
 
