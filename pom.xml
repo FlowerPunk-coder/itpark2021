@@ -35,6 +35,8 @@
         <hibernate-core.version>5.6.1.Final</hibernate-core.version>
         <mysql-connector-java.version>8.0.26</mysql-connector-java.version>
         <opencsv.version>5.5.2</opencsv.version>
+        <spring-context.version>5.3.15</spring-context.version>
+        <spring-boot-starter-web.version>2.6.3</spring-boot-starter-web.version>
     </properties>
 
     <dependencies>
@@ -113,6 +115,16 @@
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
             <version>${opencsv.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring-context.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring-boot-starter-web.version}</version>
         </dependency>
     </dependencies>
 
