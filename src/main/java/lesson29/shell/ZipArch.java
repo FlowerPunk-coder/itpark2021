@@ -21,7 +21,7 @@ public class ZipArch {
 
     @ShellMethod(value = "File to zip", key = {"f", "fileToZip"})
     public void fileToZip(@ShellOption({"-n, --name"}) File name) {
-        this.fullPath = name + DOT_ZIP;
+        this.fullPath = name.getParent() + DOT_ZIP;
         try (ZipOutputStream zos = new ZipOutputStream(new FileOutputStream(this.fullPath))) {
 
             try (FileInputStream fis = new FileInputStream(name)) {
