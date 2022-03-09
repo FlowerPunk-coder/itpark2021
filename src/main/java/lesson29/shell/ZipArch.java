@@ -1,7 +1,6 @@
 package lesson29.shell;
 
 import lesson29.service.LocalizationService;
-import lesson29.service.impl.LocalizationServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
