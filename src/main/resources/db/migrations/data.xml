@@ -1,0 +1,91 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="Populate-table-country" author="Maxim Ketikov">
+        <insert tableName="country">
+            <column name="country_code" value="BRA"/>
+            <column name="rus_country_name" value="Бразилия"/>
+            <column name="en_country_name" value="Brazil"/>
+        </insert>
+        <insert tableName="country">
+            <column name="country_code" value="RUS"/>
+            <column name="rus_country_name" value="Россия"/>
+            <column name="en_country_name" value="Russia"/>
+        </insert>
+        <insert tableName="country">
+            <column name="country_code" value="SRB"/>
+            <column name="rus_country_name" value="Сербия"/>
+            <column name="en_country_name" value="Serbia"/>
+        </insert>
+    </changeSet>
+    
+    <changeSet id="Populate-table-city" author="Maxim Ketikov">
+        <insert tableName="city">
+            <column name="rus_city_name" value="Бразилиа"/>
+            <column name="en_city_name" value="Brasilia"/>
+            <column name="code" value="5561"/>
+            <column name="population" value="3094325"/>
+            <column name="country_code" value="BRA"/>
+        </insert>
+        <insert tableName="city">
+            <column name="rus_city_name" value="Сан-Паулу"/>
+            <column name="en_city_name" value="Sao Paolo"/>
+            <column name="code" value="5511"/>
+            <column name="population" value="12396372"/>
+            <column name="country_code" value="BRA"/>
+        </insert>
+        <insert tableName="city">
+            <column name="rus_city_name" value="Рио-де-Жанейро"/>
+            <column name="en_city_name" value="Rio de Janeiro"/>
+            <column name="code" value="5521"/>
+            <column name="population" value="6775561"/>
+            <column name="country_code" value="BRA"/>
+        </insert>
+        <insert tableName="city">
+            <column name="rus_city_name" value="Москва"/>
+            <column name="en_city_name" value="Moscow"/>
+            <column name="code" value="7495"/>
+            <column name="population" value="11514330"/>
+            <column name="country_code" value="RUS"/>
+        </insert>
+        <insert tableName="city">
+            <column name="rus_city_name" value="Севастополь"/>
+            <column name="en_city_name" value="Sevastopol"/>
+            <column name="code" value="78692"/>
+            <column name="population" value="479394"/>
+            <column name="country_code" value="RUS"/>
+        </insert>
+        <insert tableName="city">
+            <column name="rus_city_name" value="Калининград"/>
+            <column name="en_city_name" value="Kaliningrad"/>
+            <column name="code" value="74012"/>
+            <column name="population" value="493256"/>
+            <column name="country_code" value="RUS"/>
+        </insert>
+        <insert tableName="city">
+            <column name="rus_city_name" value="Белград"/>
+            <column name="en_city_name" value="Belgrade"/>
+            <column name="code" value="011"/>
+            <column name="population" value="1378682"/>
+            <column name="country_code" value="SRB"/>
+        </insert>
+        <insert tableName="city">
+            <column name="rus_city_name" value="Приштина"/>
+            <column name="en_city_name" value="Pristina"/>
+            <column name="code" value="381038"/>
+            <column name="population" value="207477"/>
+            <column name="country_code" value="SRB"/>
+        </insert>
+        <insert tableName="city">
+            <column name="rus_city_name" value="Призрен"/>
+            <column name="en_city_name" value="Prizren"/>
+            <column name="code" value="38129"/>
+            <column name="population" value="85119"/>
+            <column name="country_code" value="SRB"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
