@@ -1,7 +1,6 @@
 package lesson29.shell;
 
 import lesson29.service.LocalizationService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
@@ -16,13 +15,15 @@ import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 @ShellComponent
-@RequiredArgsConstructor
 public class ZipArch {
 
     private final static String DOT_ZIP = ".zip";
     private String fullPath = "";
     private final LocalizationService localizationService;
 
+    public ZipArch(LocalizationService localizationService) {
+        this.localizationService = localizationService;
+    }
 
 
     @ShellMethod(value = "File to zip", key = {"f", "fileToZip"})
@@ -53,16 +54,14 @@ public class ZipArch {
             File[] allFiles = dir.listFiles();
             if (allFiles != null) {
                 Arrays.stream(allFiles).forEach(e -> {
-                    try {
-                        FileInputStream f = new FileInputStream(e);
+                    try (FileInputStream f = new FileInputStream(e)) {
                         byte[] temp = new byte[f.available()];
                         ZipEntry zip = new ZipEntry(e.getName());
                         z.putNextEntry(zip);
                         f.read(temp);
                         z.write(temp);
-                        f.close();
                         z.closeEntry();
-                    } catch (IOException ex) {
+                    }  catch (IOException ex) {
                         ex.printStackTrace();
                     }
                 });
@@ -85,13 +84,13 @@ public class ZipArch {
             ZipEntry entry;
             while ((entry = zis.getNextEntry()) != null) {
                 String name = entry.getName();
-                FileOutputStream f = new FileOutputStream(newDir + "\\" + name);
-                while (zis.available() > 0) {
-                    f.write(zis.read());
+                try (FileOutputStream f = new FileOutputStream(newDir + "\\" + name)) {
+                    while (zis.available() > 0) {
+                        f.write(zis.read());
+                    }
+                    f.flush();
+                    zis.closeEntry();
                 }
-                f.flush();
-                zis.closeEntry();
-                f.close();
             }
             return localizationService.localize("unzip.text", newDir.getPath());
         } catch (IOException ex) {
