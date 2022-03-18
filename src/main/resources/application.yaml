@@ -27,3 +27,6 @@ application:
   locale: ru
   crud:
     locale: ru
+
+server:
+  port: 8033
