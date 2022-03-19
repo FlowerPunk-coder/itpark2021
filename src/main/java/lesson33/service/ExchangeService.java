@@ -4,6 +4,6 @@ import java.math.BigDecimal;
 
 public interface ExchangeService {
 
-    BigDecimal exchange(BigDecimal arg1, String arg2);
+    BigDecimal exchange(BigDecimal exchangeValue, String valuteCode);
 
 }

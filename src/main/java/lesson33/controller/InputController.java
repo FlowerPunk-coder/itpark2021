@@ -20,8 +20,8 @@ public class InputController {
 
 
     @PostMapping("/valute")
-    public ResultDto exchangeValute(BigDecimal arg1, String arg2) {
-        return new ResultDto(arg2, exchangeService.exchange(arg1, arg2));
+    public ResultDto exchangeValute(BigDecimal exchangeValue, String valuteCode) {
+        return new ResultDto(valuteCode, exchangeService.exchange(exchangeValue, valuteCode));
     }
 
 

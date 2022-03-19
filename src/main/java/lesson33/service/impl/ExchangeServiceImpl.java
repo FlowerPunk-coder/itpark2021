@@ -16,10 +16,10 @@ public class ExchangeServiceImpl implements ExchangeService {
     }
 
     @Override
-    public BigDecimal exchange(BigDecimal arg1, String arg2) {
+    public BigDecimal exchange(BigDecimal exchangeValue, String valuteCode) {
 
-        BigDecimal multi = changeValute.getValueByCode(arg2).orElse(new BigDecimal(0));
+        BigDecimal multi = changeValute.getValueByCode(valuteCode).orElse(new BigDecimal(0));
 
-        return multi.multiply(arg1);
+        return multi.multiply(exchangeValue);
     }
 }
