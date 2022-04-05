@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name = "viewport" content = "width=device-width, initial-scale = 1">
+    <meta charset="UTF-8">
+    <title>Add-Edit-Form</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css"/>
+</head>
+<body>
+
+<form id="add-form" th:action="@{/country/save}" th:if="${country == null}" method="post" action="country.html">
+    <p>Добавте новую страну</p>
+    <div>
+        <label for="code-input">Код страны: </label>
+        <input id="code-input" name="code" type="text" required="required" maxlength="3"/>
+    </div>
+    <div>
+        <label for="rus-name">Русское название: </label>
+        <input id="rus-name" name="russianName" type="text" required="required" maxlength="255"/>
+    </div>
+    <div>
+        <label for="eng-name">Международное название: </label>
+        <input id="eng-name" name="englishName" type="text" required="required" maxlength="130">
+    </div>
+    <div>
+        <button id="add" type="submit">Добавить</button>
+    </div>
+    <div>
+        <a th:href="@{/countries}" href="countries.html" alt="back"><img th:src="@{/images/back.png}"/></a>
+    </div>
+
+</form>
+
+<form id="edit-form" th:object="${country}" th:action="@{/country/save(code=${country.code})}" th:unless="${country == null}" method="post" action="country.html">
+
+    <div>
+        <label for="code-input-edit">Код страны: </label>
+        <input id="code-input-edit" type="text" th:value="*{code}" required="required" maxlength="3" value="1"/>
+    </div>
+    <div>
+        <label for="rus-name-edit">Русское название: </label>
+        <input id="rus-name-edit" type="text" name="russianName" required="required" maxlength="255"/>
+    </div>
+    <div>
+        <label for="eng-name-edit">Английское название: </label>
+        <input id="eng-name-edit"  type="text" name="englishName" required="required" maxlength="130">
+    </div>
+    <div>
+        <button id="edit" type="submit">Изменить</button>
+    </div>
+    <div>
+        <a th:href="@{/countries}" href="countries.html" alt="back"><img th:src="@{/images/back.png}"/></a>
+    </div>
+</form>
+
+
+</body>
+</html>

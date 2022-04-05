@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name = "viewport" content = "width=device-width, initial-scale = 1">
+    <meta charset="UTF-8">
+    <title>Страны</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css"/>
+    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $('.del').click(function () {
+                let code = $(this).attr('class').replace('del', '');
+                $.ajax({
+                    url: '/delete/' + code.trim(),
+                    type: 'DELETE',
+                    success: function () {
+                        location.href = '/countries'
+                    },
+                    error: function (result) {
+                        alert('Что-то пошло не так!');
+                    }
+                })
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="navigation">
+    <a th:if="${countries.hasPrevious}" th:href="@{/countries(page=${countries.currentPage-1})}"
+       href="countries.html"><img
+            alt="Предыдущая страница" th:src="@{/images/prev.png}"/></a>
+    Текущая страница <span th:text="${countries.currentPage + 1}">0</span> из <span
+        th:text="${countries.totalPages}">2</span>
+    <a th:if="${countries.hasNext}" th:href="@{/countries(page=${countries.currentPage + 1})}" href="countries.html">
+        <img alt="Следующая страница" th:src="@{/images/next.png}"/></a>
+</div>
+<table class="countries" border="1">
+    <thead>
+    <tr>
+        <th>Код</th>
+        <th>Русское название</th>
+        <th>Международное название</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr  th:each="country: ${countries.list}">
+        <td th:text="${country.code}">code</td>
+        <td th:text="${country.russianName}">rus</td>
+        <td th:text="${country.englishName}">eng</td>
+        <td><a th:href="@{/countries/edit(code=${country.code})}" href="country.html">
+            <img alt="edit-country" th:src="@{/images/edit.png}"/></a>
+        </td>
+        <td><button class="del" th:classappend="${country.code}"><img alt="delete-country" th:src="@{/images/del.png}"/></button></td>
+    </tr>
+    </tbody>
+</table>
+<div>
+    <a th:href="@{/}" href="../home.html"><img th:src="@{images/back.png}"/></a>
+    <a th:href="@{/countries/add}" href="country.html"><img alt="add-country" th:src="@{/images/add.png}"/></a>
+</div>
+
+</body>
+</html>
