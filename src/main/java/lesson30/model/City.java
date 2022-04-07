@@ -22,7 +22,7 @@ public class City {
     private int code;
     @Column
     private long population;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "country_code", nullable = false)
     private Country country;
 

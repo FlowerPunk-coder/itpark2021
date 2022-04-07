@@ -20,8 +20,6 @@ public class Country {
     private String russianName;
     @Column(name = "en_country_name", nullable = false)
     private String englishName;
-
-
     @OneToMany(mappedBy = "country")
     private List<City> city;
 
