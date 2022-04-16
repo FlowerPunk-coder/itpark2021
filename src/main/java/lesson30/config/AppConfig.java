@@ -1,4 +1,4 @@
-package lesson30.config;
+/*package lesson30.config;
 
 
 
@@ -39,4 +39,4 @@ public class AppConfig {
     public PromptProvider promptProvider(LocalizationService localizationService) {
         return () -> new AttributedString(localizationService.localize("start"));
     }
-}
+}*/

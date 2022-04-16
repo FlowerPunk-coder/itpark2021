@@ -27,12 +27,12 @@ public class CityServiceImpl implements CityService {
 
 
     @Override
-    public String addCity(String russianName, String englishName, int code, long population, String country_code) {
+    public String addCity(String russianName, String englishName, int code, long population, String countryCode) {
 
-        if (isCountry(country_code)) {
-            return localizationService.localize("empty.country", country_code.toUpperCase());
+        if (isCountry(countryCode)) {
+            return localizationService.localize("empty.country", countryCode.toUpperCase());
         }
-        Country country = countryRepository.findById(country_code.toUpperCase()).get();
+        Country country = countryRepository.findById(countryCode.toUpperCase()).get();
         cityRepository.save(new City(russianName, englishName, code, population, country));
 
         return localizationService.localize("add.city");
@@ -105,6 +105,7 @@ public class CityServiceImpl implements CityService {
     }
 
     private boolean isCountry(String code) {
+
         return countryRepository.findById(code).isEmpty();
     }
 

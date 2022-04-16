@@ -16,8 +16,6 @@ $(function (){
                 success: function (result) {
                     $('#result').text(arg1 + ' ' + arg2.val() + ' = ' + result.value + ' ₽')
                         .css("visibility", "visible");
-
-
                 },
                 error: function (result) {
                     $('#result').text('Что-то пошло не так ' + result.value);

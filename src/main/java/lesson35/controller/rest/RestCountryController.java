@@ -1,4 +1,4 @@
-package lesson35.dto.controller.rest;
+package lesson35.controller.rest;
 
 import lesson35.service.CountryService;
 import lombok.Data;

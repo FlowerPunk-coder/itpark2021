@@ -1,4 +1,4 @@
-package lesson35.dto.controller;
+package lesson35.controller;
 
 import lesson35.dto.CountryDto;
 import lesson35.dto.CountryPageDto;

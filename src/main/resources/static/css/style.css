@@ -55,7 +55,7 @@ label {
 }
 
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 600px) and (min-height: 600px){
     body {
         width: 80%;
         height: 30%;
@@ -90,6 +90,8 @@ label {
     margin-left: -5%;
 
 }
+
+
 
 
 

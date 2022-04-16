@@ -1,4 +1,4 @@
-package lesson35.dto.controller;
+package lesson35.controller;
 
 
 import org.springframework.stereotype.Controller;
