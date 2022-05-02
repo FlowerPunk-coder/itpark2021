@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: another-module
+
+  datasource:
+    url: jdbc:mysql://localhost:3312/db
+    username: user
+    password: password
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+server:
+  port: 8034
