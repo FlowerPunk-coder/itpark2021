@@ -1,0 +1,51 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="Populate-district-table" author="Maxim Ketikov">
+        <insert tableName="district">
+            <!--<id is auto incremented>-->
+            <column name="name" value="Академический"/>
+        </insert>
+        <insert tableName="district">
+            <!--<id is auto incremented>-->
+            <column name="name" value="Гагаринский"/>
+        </insert>
+        <insert tableName="district">
+            <!--<id is auto incremented>-->
+            <column name="name" value="Зюзино"/>
+        </insert>
+        <insert tableName="district">
+            <!--<id is auto incremented>-->
+            <column name="name" value="Новые Черёмушки"/>
+        </insert>
+        <insert tableName="district">
+            <!--<id is auto incremented>-->
+            <column name="name" value="Северное Бутово"/>
+        </insert>
+        <insert tableName="district">
+            <!--<id is auto incremented>-->
+            <column name="name" value="Южное Бутово"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="Populate-street-table" author="Maxim Ketikov">
+        <insert tableName="street">
+            <column name="name" value="Балаклавский проспект"/>
+            <column name="district_id" valueComputed="(SELECT id FROM district WHERE name = 'Зюзино')"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="Populate-house-table" author="Maxim Ketikov">
+        <insert tableName="house">
+            <column name="entrance" value="1"/>
+            <column name="system" value="1"/>
+            <column name="number" value="24"/>
+            <column name="street_id" valueComputed="(SELECT id FROM street WHERE name = 'Балаклавский проспект')"/>
+            <column name="sing" value="K"/>
+            <column name="prefix" value="2"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
