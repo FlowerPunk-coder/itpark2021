@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name = "viewport" content = "width=device-width, initial-scale = 1">
+    <meta charset="UTF-8">
+    <title>Страны</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css"/>
+    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            fillData();
+        });
+
+        function fillData(page) {
+            $.get('/api/countries' + (page ? '?page=' + page : ''), function (result) {
+                let rowsData = '';
+                for (let i = 0; i < result.length; i++) {
+                    let country = result[i];
+                    var actionButton =
+                        '<td>' +
+                        '<a href="/countries/edit?code=' + country.code + '"><img title="Edit" src="/images/edit.png"/></a>' +
+                        '<a data-id="country_' + country.code + '" href="genre.html"><img title="Delete" src="/images/del.png"/></a>' +
+                        '</td>';
+
+                    rowsData += '<tr><td>' + country.code + '</td>' +
+                        '<td>' + country.russianName + '</td>' +
+                        '<td>' + country.englishName + '</td>' +
+                        actionButton +
+                        '</tr>';
+                }
+                let genreDataElement = $('#countryData');
+                genreDataElement.html(rowsData);
+
+                $('a[data-id^=country_]').one('click', function (event) {
+                    if (confirm('Подтвердите удаление')) {
+                        let countryCode = $(this).attr('data-id').replace('country_', '');
+                        $.ajax({
+                            url: '/api/countries/' + countryCode,
+                            type: 'DELETE',
+                            success: function () {
+                                location.href = '/countries';
+                            },
+                        });
+                    }
+                    event.preventDefault();
+                });
+            });
+        }
+    </script>
+</head>
+<body>
+<p><strong>Countries:</strong></p>
+
+<div id="navigation"></div>
+<table class="countries" border="1">
+    <thead>
+    <tr>
+        <th>Code</th>
+        <th>Russian Name</th>
+        <th>English Name</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody id="countryData"/>
+</table>
+<div id="toolbar">
+    <a th:href="@{/}" href="../index.html"><img title="Back" th:src="@{/images/back.png}"/></a>
+    <a th:href="@{/countries/add}" href="country.html"><img title="Add" th:src="@{/images/add.png}"/></a>
+</div>
+</body>
+</html>

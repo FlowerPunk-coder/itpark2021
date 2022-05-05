@@ -1,0 +1,17 @@
+spring:
+  main:
+    banner-mode: 'off'
+  application:
+    name: countries
+  data:
+    mongodb:
+      database: countries
+      port: 27017
+      host: localhost
+
+
+application:
+  locale: ru
+
+server:
+  port: 8035
