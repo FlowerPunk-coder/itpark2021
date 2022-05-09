@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta name = "viewport" content = "width=device-width, initial-scale = 1">
+    <meta name="viewport" content="width=device-width, initial-scale = 1">
     <meta charset="UTF-8">
     <title>Add-Edit-Form</title>
     <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
@@ -10,25 +10,24 @@
         $(function () {
             $("#code-input").blur(function () {
                 let code = $("#code-input").val();
-                if (code !== null) {
-                    $.ajax({
-                        url: '/api/countries/search/findByCode?code=' + code,
-                        type: 'GET',
-                        success: function (result) {
-                            $("#rus-name").val(result.russianName);
-                            $("#eng-name").val(result.englishName);
-                            $("#add").text('Изменить').fadeIn('fast');
-                        },
-                        error: function (jqXHR, result) {
-                            if (jqXHR.status === 404) {
-                                $("#rus-name").val('');
-                                $("#eng-name").val('');
-                                $("#add").text('Добавить').fadeIn('fast');
-                            }
 
+                $.ajax({
+                    url: '/api/countries/search/findByCode?code=' + code,
+                    type: 'GET',
+                    success: function (result) {
+                        $("#rus-name").val(result.russianName);
+                        $("#eng-name").val(result.englishName);
+                        $("#add").text('Изменить').fadeIn('fast');
+                    },
+                    error: function (jqXHR, result) {
+                        if (jqXHR.status === 404) {
+                            $("#rus-name").val('');
+                            $("#eng-name").val('');
+                            $("#add").text('Добавить').fadeIn('fast');
                         }
-                    });
-                }
+                    }
+                });
+
             });
         });
     </script>
