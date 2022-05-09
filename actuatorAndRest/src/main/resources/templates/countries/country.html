@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name = "viewport" content = "width=device-width, initial-scale = 1">
+    <meta charset="UTF-8">
+    <title>Add-Edit-Form</title>
+    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css"/>
+    <script>
+        $(function () {
+            $("#code-input").blur(function () {
+                let code = $("#code-input").val();
+                if (code !== null) {
+                    $.ajax({
+                        url: '/api/countries/search/findByCode?code=' + code,
+                        type: 'GET',
+                        success: function (result) {
+                            $("#rus-name").val(result.russianName);
+                            $("#eng-name").val(result.englishName);
+                            $("#add").text('Изменить').fadeIn('fast');
+                        },
+                        error: function (jqXHR, result) {
+                            if (jqXHR.status === 404) {
+                                $("#rus-name").val('');
+                                $("#eng-name").val('');
+                                $("#add").text('Добавить').fadeIn('fast');
+                            }
+
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+
+<form id="add-form" th:action="@{/country/save}" th:if="${country == null}" method="post" action="country.html">
+    <p>Добавте новую страну</p>
+    <div>
+        <label for="code-input">Код страны: </label>
+        <input id="code-input" name="code" type="text" required="required" maxlength="3"/>
+    </div>
+    <div>
+        <label for="rus-name">Русское название: </label>
+        <input id="rus-name" name="russianName" type="text" required="required" maxlength="255"/>
+    </div>
+    <div>
+        <label for="eng-name">Международное название: </label>
+        <input id="eng-name" name="englishName" type="text" required="required" maxlength="130">
+    </div>
+    <div>
+        <button id="add" type="submit">Добавить</button>
+    </div>
+    <div>
+        <a th:href="@{/countries}" href="countries.html" alt="back"><img th:src="@{/images/back.png}"/></a>
+    </div>
+
+</form>
+
+</body>
+</html>

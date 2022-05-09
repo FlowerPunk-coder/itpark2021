@@ -1,0 +1,39 @@
+spring:
+  main:
+    banner-mode: 'off'
+  application:
+    name: actuator-and-rest
+  datasource:
+    url: jdbc:mysql://localhost:3312/db
+    username: user
+    password: password
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+    show-sql: true
+    default_schema: db
+    format_sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+  liquibase:
+      change-log: 'classpath:db/migrations/changeLog.xml'
+  data:
+    rest:
+      base-path: api
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health, info, loggers"
+
+application:
+  locale: ru
+
+server:
+  port: 8036
