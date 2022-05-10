@@ -7,34 +7,12 @@
     <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css"/>
     <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
     <script>
-        $(function () {
-            fillData();
-        });
-
-        function fillData(page) {
-            $.get('/api/countries' + (page ? '?page=' + page : ''), function (result) {
-                let rowsData = '';
-                for (let i = 0; i < result._embedded.countries.length; i++) {
-                    let country = result._embedded.countries[i];
-                    var actionButton =
-                        '<td>' +
-                        '<a data-id="country_' + country._links.country.href + '" href="countries.html"><img title="Delete" src="/images/del.png"/></a>' +
-                        '</td>';
-
-                    rowsData += '<tr>' +
-                        '<td>' + country.russianName + '</td>' +
-                        '<td>' + country.englishName + '</td>' +
-                        actionButton +
-                        '</tr>';
-                }
-                let genreDataElement = $('#countryData');
-                genreDataElement.html(rowsData);
-
-                $('a[data-id^=country_]').one('click', function (event) {
+       $(function () {
+                $('.del').one('click', function (event) {
                     if (confirm('Подтвердите удаление')) {
-                        let countryCode = $(this).attr('data-id').replace('country_', '');
+                        let countryCode = $(this).attr('class').replace('del', '');
                         $.ajax({
-                            url: countryCode,
+                            url: '/api/countries/' + countryCode.trim(),
                             type: 'DELETE',
                             success: function () {
                                 location.href = '/countries';
@@ -43,27 +21,40 @@
                     }
                     event.preventDefault();
                 });
-            });
-        }
+        });
     </script>
 </head>
 <body>
-<p><strong>Countries:</strong></p>
-
-<div id="navigation"></div>
+<div id="navigation">
+    <a th:if="${countries.hasPrevious}" th:href="@{/countries(page=${countries.currentPage-1})}"
+       href="countries.html"><img
+            alt="Предыдущая страница" th:src="@{/images/prev.png}"/></a>
+    Текущая страница <span th:text="${countries.currentPage + 1}">0</span> из <span
+        th:text="${countries.totalPages}">2</span>
+    <a th:if="${countries.hasNext}" th:href="@{/countries(page=${countries.currentPage + 1})}" href="countries.html">
+        <img alt="Следующая страница" th:src="@{/images/next.png}"/></a>
+</div>
 <table class="countries" border="1">
     <thead>
     <tr>
-        <th>Russian Name</th>
-        <th>English Name</th>
-        <th>Actions</th>
+        <th>Код</th>
+        <th>Русское название</th>
+        <th>Международное название</th>
     </tr>
     </thead>
-    <tbody id="countryData"/>
+    <tbody>
+    <tr  th:each="country: ${countries.list}">
+        <td th:text="${country.code}">code</td>
+        <td th:text="${country.russianName}">rus</td>
+        <td th:text="${country.englishName}">eng</td>
+        <td><button class="del" th:classappend="${country.code}"><img alt="delete-country" title="Delete" th:src="@{/images/del.png}"/></button></td>
+    </tr>
+    </tbody>
 </table>
-<div id="toolbar">
-    <a th:href="@{/}" href="../index.html"><img title="Back" th:src="@{/images/back.png}"/></a>
-    <a th:href="@{/countries/add}" href="country.html"><img title="Add and Edit" th:src="@{/images/edit.png}"/></a>
+<div>
+    <a th:href="@{/}" href="../home.html"><img th:src="@{images/back.png}"/></a>
+    <a th:href="@{/countries/add}" href="country.html"><img alt="add-country" title="Add or Edit" th:src="@{/images/add.png}"/></a>
 </div>
+
 </body>
 </html>
