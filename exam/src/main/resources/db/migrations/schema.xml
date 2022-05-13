@@ -1,0 +1,54 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="Create-table-country" author="Maxim Ketikov">
+        <preConditions>
+            <not>
+                <tableExists tableName="country"/>
+            </not>
+        </preConditions>
+        <createTable tableName="country">
+            <column name="country_code" type="varchar(3)">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="rus_country_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="en_country_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="Create-table-city" author="Maxim Ketikov">
+        <preConditions>
+            <not>
+                <tableExists tableName="city"/>
+            </not>
+        </preConditions>
+        <createTable tableName="city">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="code" type="int">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="rus_city_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="en_city_name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="population" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="country_code" type="varchar(3)">
+                <constraints nullable="false" foreignKeyName="fk_city_country"
+                             references="country(country_code)"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

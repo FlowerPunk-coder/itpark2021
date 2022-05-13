@@ -1,0 +1,58 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="Create-table-role" author="Maxim Ketikov">
+        <preConditions>
+            <not>
+                <tableExists tableName="role"/>
+            </not>
+        </preConditions>
+        <createTable tableName="role">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="role" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="Create-table-user" author="Maxim Ketikov">
+        <preConditions>
+            <not>
+                <tableExists tableName="user"/>
+            </not>
+        </preConditions>
+        <createTable tableName="user">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="login" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="int(1)" defaultValue="1">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id" type="bigint" defaultValue="1">
+                <constraints nullable="false" foreignKeyName="fk_user_role" references="role(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="Populate-user-role-tables" author="Maxim Ketikov">
+        <insert tableName="role">
+            <column name="role" value="ADMIN"/>
+        </insert>
+        <insert tableName="user">
+            <column name="login" value="admin"/>
+            <column name="password" value="$2y$10$OAgaGeXn5OB89S7QWzAy2.MfTESehtr4qEX8.t/PKgIo4BlnHBh1a"/>
+            <column name="role_id" valueComputed="(select id from role where role='ADMIN')"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

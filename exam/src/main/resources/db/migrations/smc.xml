@@ -1,0 +1,143 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="Create-table-district" author="Maxim Ketikov">
+        <preConditions>
+            <not>
+                <tableExists tableName="district"/>
+            </not>
+        </preConditions>
+        <createTable tableName="district">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="Create-table-street" author="Maxim Ketikov">
+        <preConditions>
+            <not>
+                <tableExists tableName="street"/>
+            </not>
+        </preConditions>
+        <createTable tableName="street">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="district_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_district_street"
+                             references="district(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="Create-table-house" author="Maxim Ketikov">
+        <preConditions>
+            <not>
+                <tableExists tableName="house"/>
+            </not>
+        </preConditions>
+        <createTable tableName="house">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="number" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sing" type="varchar(10)"/>
+            <column name="prefix" type="int"/>
+            <column name="check" type="boolean" defaultValue="false"/>
+            <column name="street_id" type="bigint">
+                <constraints foreignKeyName="fk_street_house" references="street(id)"/>
+            </column>
+        </createTable>
+        <addUniqueConstraint tableName="house" columnNames="number, sing, prefix, street_id"/>
+    </changeSet>
+    <changeSet id="Create-table-house_details" author="Maxim Ketikov">
+        <preConditions>
+            <not>
+                <tableExists tableName="house_details"/>
+            </not>
+        </preConditions>
+        <createTable tableName="house_details">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true" foreignKeyName="fk_house_house_details" references="house(id)"/>
+            </column>
+            <column name="date" type="timestamp"/>
+            <column name="systems" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="entrances" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="levels" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="multilevel" type="boolean" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="comment" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="Create-table-entrance" author="Maxim Ketikov">
+        <preConditions>
+            <not>
+                <tableExists tableName="entrance"/>
+            </not>
+        </preConditions>
+        <createTable tableName="entrance">
+            <column name="id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="number_entrance" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="levels" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fire_boxes" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="pipes" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fire_cranes" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="basement" type="boolean" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="attic" type="boolean" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_level" type="boolean" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="work" type="boolean" defaultValue="false">
+                <constraints nullable="false"/>
+            </column>
+            <column name="house_details_id" type="bigint">
+                <constraints foreignKeyName="fk_house_details_entrance" references="house_details(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="Create-table-fire_box" author="Maxim Ketikov">
+        <createTable tableName="fire_box">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false" foreignKeyName="fk_entrance_firebox" references="entrance(id)"/>
+            </column>
+            <column name="complete" type="boolean"/>
+            <column name="component" type="boolean"/>
+            <column name="fire_hose" type="boolean"/>
+            <column name="double_roll" type="boolean"/>
+            <column name="access" type="boolean"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

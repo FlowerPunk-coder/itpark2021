@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name = "viewport" content = "width=device-width, initial-scale = 1">
+    <meta charset="UTF-8">
+    <script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css"/>
+    <title>Add-edit-street</title>
+    <script>
+        $(function () {
+            $("#district-frs").change(function () {
+                let id = $(this).val();
+                let input = $('#street-name').val();
+                alert(id + input);
+            });
+        });
+    </script>
+</head>
+<body>
+
+<form id="add-street" action="street.html" th:action="@{/smc/street/save}" method="post">
+    <select id="district-frs" required>
+        <option id="first-sl" disabled selected th:text="#{exam.choice.district}">Выберите район</option>
+        <option th:each="district: ${districts}"
+                th:text="${district.name}" th:value="${district.id}" name="ids">art</option>
+    </select>
+    <label for="street-name">Название улицы</label>
+    <input id="street-name" name="name" required="required" type="text" maxlength="255"/>
+    <input id="street-district" name="id" type="number"/>
+    <button id="add-btn" type="submit">Добавить</button>
+
+</form>
+</body>
+</html>
