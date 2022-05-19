@@ -53,7 +53,8 @@
             </column>
             <column name="sing" type="varchar(10)"/>
             <column name="prefix" type="int"/>
-            <column name="check" type="boolean" defaultValue="false"/>
+            <column name="checked" type="boolean" defaultValue="false"/>
+            <column name="check_date" type="timestamp" defaultValue="NOW()"/>
             <column name="street_id" type="bigint">
                 <constraints foreignKeyName="fk_street_house" references="street(id)"/>
             </column>
@@ -70,7 +71,6 @@
             <column name="id" type="bigint">
                 <constraints nullable="false" primaryKey="true" foreignKeyName="fk_house_house_details" references="house(id)"/>
             </column>
-            <column name="date" type="timestamp"/>
             <column name="systems" type="int">
                 <constraints nullable="false"/>
             </column>
@@ -80,7 +80,7 @@
             <column name="levels" type="int">
                 <constraints nullable="false"/>
             </column>
-            <column name="multilevel" type="boolean" defaultValue="false">
+            <column name="multilevel" type="boolean" defaultValueBoolean="false">
                 <constraints nullable="false"/>
             </column>
             <column name="comment" type="varchar(255)"/>
@@ -94,10 +94,10 @@
         </preConditions>
         <createTable tableName="entrance">
             <column name="id" type="bigint">
-                <constraints nullable="false" primaryKey="true"/>
+                <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="number_entrance" type="int">
-                <constraints nullable="false"/>
+                <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="levels" type="int">
                 <constraints nullable="false"/>
@@ -111,33 +111,36 @@
             <column name="fire_cranes" type="int">
                 <constraints nullable="false"/>
             </column>
-            <column name="basement" type="boolean" defaultValue="false">
+            <column name="basement" type="boolean" defaultValueBoolean="false">
                 <constraints nullable="false"/>
             </column>
-            <column name="attic" type="boolean" defaultValue="false">
+            <column name="attic" type="boolean" defaultValueBoolean="false">
                 <constraints nullable="false"/>
             </column>
-            <column name="first_level" type="boolean" defaultValue="false">
+            <column name="first_level" type="boolean" defaultValueBoolean="false">
                 <constraints nullable="false"/>
             </column>
-            <column name="work" type="boolean" defaultValue="false">
+            <column name="work" type="boolean" defaultValueBoolean="false">
                 <constraints nullable="false"/>
             </column>
             <column name="house_details_id" type="bigint">
-                <constraints foreignKeyName="fk_house_details_entrance" references="house_details(id)"/>
+                <constraints nullable="false"
+                             foreignKeyName="fk_house_details_entrance" references="house_details(id)"/>
             </column>
         </createTable>
+        <addUniqueConstraint tableName="entrance" columnNames="number_entrance, house_details_id"/>
     </changeSet>
     <changeSet id="Create-table-fire_box" author="Maxim Ketikov">
         <createTable tableName="fire_box">
             <column name="id" type="bigint">
-                <constraints primaryKey="true" nullable="false" foreignKeyName="fk_entrance_firebox" references="entrance(id)"/>
+                <constraints primaryKey="true" nullable="false"
+                             foreignKeyName="fk_entrance_firebox" references="entrance(id)"/>
             </column>
-            <column name="complete" type="boolean"/>
-            <column name="component" type="boolean"/>
-            <column name="fire_hose" type="boolean"/>
-            <column name="double_roll" type="boolean"/>
-            <column name="access" type="boolean"/>
+            <column name="complete" type="boolean" defaultValueBoolean="false"/>
+            <column name="component" type="boolean" defaultValueBoolean="false"/>
+            <column name="fire_hose" type="boolean" defaultValueBoolean="false"/>
+            <column name="double_roll" type="boolean" defaultValueBoolean="false"/>
+            <column name="access" type="boolean" defaultValueBoolean="false"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>

@@ -1,10 +1,11 @@
 package exam.dto;
 
+import exam.model.Entrance;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Timestamp;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -12,8 +13,6 @@ import java.sql.Timestamp;
 public class HouseDetailsDto {
 
     private long id;
-
-    private Timestamp date;
 
     private int numberOfSystems;
 
@@ -24,4 +23,8 @@ public class HouseDetailsDto {
     private boolean multilevel;
 
     private String comment;
+
+    private HouseDto house;
+
+    private List<Entrance> entrances;
 }

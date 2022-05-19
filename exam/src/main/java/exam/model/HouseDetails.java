@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.List;
 
 @Data
 @Entity
@@ -14,8 +14,6 @@ public class HouseDetails {
 
     @Id
     private long id;
-    @Column(name = "date")
-    private Timestamp date;
     @Column(name = "systems", nullable = false)
     private int numberOfSystems;
     @Column(name = "entrances", nullable = false)
@@ -32,10 +30,8 @@ public class HouseDetails {
     @JoinColumn(name = "id")
     private House house;
 
-    /*@OneToMany(mappedBy = "houseDetails", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Entrance> entrances;*/
-
-
+    @OneToMany(mappedBy = "houseDetails", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Entrance> entrances;
 
 
 }

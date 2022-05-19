@@ -1,14 +1,13 @@
+/*
 package exam.mapper;
 
 
 import exam.dto.*;
 import exam.model.*;
-import org.mapstruct.Mapper;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Mapper
 public interface ExamMapper {
 
 
@@ -26,7 +25,7 @@ public interface ExamMapper {
 
     HouseDto toHouseDto(House house);
 
-    House toHouseEntity(HouseDto houseDto);
+    House toHouseEntity(HouseDto house);
 
 
     HouseDetailsDto toHouseDetailsDto(HouseDetails houseDetails);
@@ -70,3 +69,4 @@ public interface ExamMapper {
 
 
 }
+*/

@@ -91,7 +91,7 @@ label {
 
 }
 
-#street, #house {
+.add-street, .add-house {
     display: none;
 }
 
@@ -104,6 +104,13 @@ label {
    display: flex;
 }
 
+.back {
+    float: right;
+}
+
+.firebox {
+    float: right;
+}
 
 
 

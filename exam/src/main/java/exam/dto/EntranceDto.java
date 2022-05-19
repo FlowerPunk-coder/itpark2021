@@ -23,9 +23,12 @@ public class EntranceDto {
 
     private boolean hasFirstLevel;
 
-    private boolean isWork;
+    private boolean work;
 
-    private boolean isBasementOpen;
+    private boolean basement;
 
-    private boolean isAtticOpen;
+    private boolean attic;
+
+    private HouseDetailsDto houseDetails;
+
 }

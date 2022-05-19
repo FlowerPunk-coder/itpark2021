@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta name = "viewport" content = "width=device-width, initial-scale = 1">
+    <meta charset="UTF-8">
+    <title>ENTRANCE</title>
+    <script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+    <!--<script src="/js/choiceAddress.js"></script>-->
+    <!--<script src="/js/multiFormSender.js"></script>-->
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css"/>
+    <link rel="stylesheet" th:href="@{/css/accordion.css}" href="/css/style.css"/>
+</head>
+<body>
+<form id="entrances"  th:action="@{/smc/entrance/save}"
+      th:each="entrance, stat: ${entrances}" action="entrance.html" method="post">
+    <details class="entry_" th:classappend="${entrance.houseDetails.id}" >
+        <summary th:unless="${entrance.numberEntrance}">Подъезд № [[${stat.count}]]</summary>
+        <summary th:if="${entrance.numberEntrance}">Подъезд № [[${entrance.numberEntrance}]]</summary>
+        <input id="id-enrty" type="number" name='id' th:value="${entrance.id}" hidden>
+
+        <label>Номер подъезда:</label>
+        <input th:unless="${entrance.numberEntrance}"  type="number" name='numberEntrance'
+               th:value="${stat.count}" title="Номер подъезда"/><br><br>
+        <input th:if="${entrance.numberEntrance}" type="number" name='numberEntrance'
+               th:value="${entrance.numberEntrance}" title="Номер подъезда"/><br><br>
+
+        <label for="number-lvl">Количество этажей:</label>
+        <input id="number-lvl" type="number" th:value="${entrance.numberOfLevels}"
+               name="numberOfLevels" placeholder='этажность' required/><br><br>
+
+        <label for="number-fb">Количество ПШ:</label>
+        <input id="number-fb" type="number" th:value="${entrance.numberOfFireBoxes}"
+               name="numberOfFireBoxes" placeholder='количество ПШ' required/><br><br>
+
+        <label for="number-pipes">Количество стояков:</label>
+        <input id="number-pipes" type="number" th:value="${entrance.numberOfPipes}"
+               name="numberOfPipes" placeholder='количество стояков' required/><br><br>
+        <label for="number-cranes">Количество пожарных кранов:</label>
+        <input id="number-cranes" type="number" th:value="${entrance.numberOfFireCranes}" name="numberOfFireCranes" placeholder='количество кранов' required/><br><br>
+
+        <label for="first-lvl">ПШ на первом этаже:</label>
+        <input id="first-lvl" type="checkbox"  name="hasFirstLevel" title='ПШ на первом этаже' value="true" checked/><br><br>
+
+        <label for="basement">Подвал открыт:</label>
+        <input id="basement" type="checkbox" th:checked="${entrance.basement}" name="basement" title='Подвал открыт' value="true"/><br><br>
+
+        <label for="attic">Чердак открыт:</label>
+        <input id="attic" type="checkbox" th:checked="${entrance.attic}" name="attic" title='Чердак открыт' value="true"/><br><br>
+
+        <label for="work">Система рабочая:</label>
+        <input id="work" type="checkbox" th:checked="${entrance.work}" name="work" title='Система' value="true"/><br><br>
+
+        <input type="text" th:value="${entrance.houseDetails.id}" name="houseDetailsId" hidden/>
+        <input type="text" th:value="${entrance.houseDetails.house.id}" name="houseId" hidden/>
+    </details>
+
+
+    <input id="house-dtl-form" type="submit" value="Сохранить"/><br><br>
+    <a class="back" th:href="@{/smc}" href="check.html"><img th:src="@{/images/back.png}" title="Назад"></a>
+</form>
+</body>
+</html>

@@ -17,6 +17,7 @@ public class District {
     private long id;
     private String name;
 
-    @OneToMany(mappedBy = "district")
+    @OneToMany(mappedBy = "district", cascade = CascadeType.ALL)
     private List<Street> streets;
+
 }

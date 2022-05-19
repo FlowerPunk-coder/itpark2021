@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta name = "viewport" content = "width=device-width, initial-scale = 1">
+    <meta charset="UTF-8">
+    <title>CHECK</title>
+    <script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/js/choiceAddress.js"></script>
+    <link rel="stylesheet" th:href="@{/css/accordion.css}" href="/css/style.css"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css"/>
+</head>
+<body>
+<div th:object="${address}">
+    <span th:text="*{street.district.name + ','}"><b>District</b></span>
+    <span th:text="*{street.name + ','}"><b>Street</b></span>
+    <span th:text="*{number + sing + prefix}" th:unless="*{prefix == 0}"><b>Number</b></span>
+    <span th:text="*{number + sing}" th:if="*{prefix == 0}"><b>Number</b></span><br>
+    <p th:if="${address.date}">Дата проверки: [[${address.date}]]</p>
+    <p th:unless="${address.date}">Не проверялось</p>
+
+</div>
+<form id="house-details" th:action="@{/smc/houseDetails/save}" action="smc.html" method="post">
+    <div id="main-info" th:object="${details}"><br><br>
+        <input name="id" th:value="${address.id}" hidden/>
+        <label for="entrances">Количество подъездов:</label>
+        <input id="entrances" th:value="*{numberOfEntrances}"
+               placeholder="количество подъездов" type="number" name="numberOfEntrances"/><br><br>
+
+        <label for="systems">Количество систем:</label>
+        <input id="systems" th:value="*{numberOfSystems}"
+               placeholder="количество систем" type="number" name="numberOfSystems"/><br><br>
+
+        <label for="levels">Количество этажей:</label>
+        <input id="levels" th:value="*{numberOfLevels}"
+               placeholder="этажность" type="number" name="numberOfLevels"/><br><br>
+
+        <label for="multilevel">Разноуровневое</label>
+        <input id="multilevel" type="checkbox" th:checked="*{multilevel}"
+               value="true" title="разноуровневое" name="multilevel"><br><br>
+
+        <label for="comment">Коментарий:</label>
+        <input id="comment" name="comment" th:value="*{comment}" placeholder="комментарий"/><br><br>
+        <input id="house-dtl-form" type="submit" value="Далее"/>
+        <a class="back" th:href="@{/smc}" href="smc.html"><img th:src="@{/images/back.png}" title="назад"></a>
+    </div>
+</form>
+
+
+
+</body>
+</html>

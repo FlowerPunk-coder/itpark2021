@@ -1,7 +1,9 @@
 package exam.controller.rest;
 
+import exam.dto.HouseDetailsDto;
 import exam.dto.HouseDto;
 import exam.dto.StreetDto;
+import exam.service.HouseDetailsService;
 import exam.service.HouseService;
 import exam.service.StreetService;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ public class RestAdminController {
 
     private final StreetService streetService;
     private final HouseService houseService;
+    private final HouseDetailsService houseDetailsService;
 
     @RequestMapping("/smc/street/{id}")
     public List<StreetDto> getStreetsById(@PathVariable("id") long id) {
@@ -36,8 +39,10 @@ public class RestAdminController {
         return houseService.findById(id);
     }
 
-
-
+    @RequestMapping("/smc/houseDetails/{id}")
+    public HouseDetailsDto getHouseDetailsDto(@PathVariable("id") long id) {
+        return houseDetailsService.findByHouseIdOrException(id);
+    }
 
 
 }

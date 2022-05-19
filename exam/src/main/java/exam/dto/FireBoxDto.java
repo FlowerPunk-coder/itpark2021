@@ -21,4 +21,6 @@ public class FireBoxDto {
     private boolean isAccess;
 
     private boolean hasComponent;
+
+    private EntranceDto entrance;
 }

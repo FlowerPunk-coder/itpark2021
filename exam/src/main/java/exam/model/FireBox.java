@@ -15,13 +15,13 @@ public class FireBox {
     @Id
     private long id;
     @Column(name = "complete")
-    private boolean isComplete;
+    private boolean hasComplete;
     @Column(name = "double_roll")
     private boolean hasDoubleRoll;
     @Column(name = "fire_hose")
     private boolean hasFireHose;
     @Column(name = "access")
-    private boolean isAccess;
+    private boolean hasAccess;
     @Column(name = "component")
     private boolean hasComponent;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
@@ -29,10 +29,4 @@ public class FireBox {
     @JoinColumn(name = "id")
     private Entrance entrance;
 
-    public boolean isComplete() {
-        if (hasComponent && hasFireHose && isAccess && hasDoubleRoll) {
-            return true;
-        }
-        return false;
-    }
 }

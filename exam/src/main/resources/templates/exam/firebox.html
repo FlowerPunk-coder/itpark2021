@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta name = "viewport" content = "width=device-width, initial-scale = 1">
+    <meta charset="UTF-8">
+    <title>ENTRANCE</title>
+    <script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+    <!--<script src="/js/choiceAddress.js"></script>-->
+    <!--<script src="/js/multiFormSender.js"></script>-->
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css"/>
+    <link rel="stylesheet" th:href="@{/css/accordion.css}" href="/css/style.css"/>
+</head>
+<body>
+
+<!--FireBox inputs-->
+<form id="firebox" th:action="@{/smc/firebox/entrance}" action="firebox.html"
+      th:each="firebox, stat: ${fireboxes}" method="post" th:object="${firebox}">
+
+    <label for="fb-complete" class="firebox">ШП укомплектованы:</label>
+    <input id="fb-complete" class="firebox" type="checkbox" name="hasComplete"
+           th:checked="*{hasComplete}" value="true"/><br><br>
+    <label for="fb-double-roll" class="firebox">Двойная скатка:</label>
+    <input id="fb-double-roll" class="firebox" type="checkbox" name="hasDoubleRoll"
+           th:checked="*{hasDoubleRoll}" value="true"/><br><br>
+
+    <label for="fb-fire-hose" class="firebox">Пожарные рукава:</label>
+    <input id="fb-fire-hose" class="firebox" type="checkbox" name="hasFireHose"
+           th:checked="*{hasFireHose}" value="true"/><br><br>
+
+    <label for="fb-access" class="firebox">Доступ в ШП:</label>
+    <input id="fb-access" class="firebox" type="checkbox" name="hasAccess"
+           th:checked="*{hasAccess}" value="true"/><br><br>
+
+    <label for="fb-component" class="firebox">Краны укомплектованы:</label>
+    <input id="fb-component" class="firebox" type="checkbox" name="hasComponent"
+           th:checked="*{hasComponent}" value="true"/><br><br>
+</form>
+</body>
+</html>

@@ -1,7 +1,7 @@
 package exam.service.impl;
 
 import exam.dto.FireBoxDto;
-import exam.mapper.ExamMapper;
+import exam.mapper.FireBoxMapper;
 import exam.repository.FireBoxRepository;
 import exam.service.FireBoxService;
 import lombok.RequiredArgsConstructor;
@@ -15,31 +15,31 @@ public class FireBoxServiceImpl implements FireBoxService {
 
 
     private final FireBoxRepository fireBoxRepository;
-    private final ExamMapper examMapper;
+    private final FireBoxMapper fireBoxMapper;
 
     @Override
     public FireBoxDto findFireBoxByEntranceId(long id) {
-        return examMapper.toFireBoxDto(fireBoxRepository.findById(id)
+        return fireBoxMapper.toFireBoxDto(fireBoxRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Not found!")));
     }
 
     @Override
     public List<FireBoxDto> findAllFireBoxesByComplete(boolean flag) {
-        return examMapper.toFireBoxDtos(fireBoxRepository.findAllFireBoxesByComplete(flag));
+        return fireBoxMapper.toFireBoxDtos(fireBoxRepository.findAllFireBoxesByComplete(flag));
     }
 
     @Override
     public List<FireBoxDto> findAllFireBoxesByAccess(boolean flag) {
-        return examMapper.toFireBoxDtos(fireBoxRepository.findAllFireBoxesByAccess(flag));
+        return fireBoxMapper.toFireBoxDtos(fireBoxRepository.findAllFireBoxesByAccess(flag));
     }
 
     @Override
     public List<FireBoxDto> findAllFireBoxesByDoubleRoll(boolean flag) {
-        return examMapper.toFireBoxDtos(fireBoxRepository.findAllFireBoxesByDoubleRoll(flag));
+        return fireBoxMapper.toFireBoxDtos(fireBoxRepository.findAllFireBoxesByDoubleRoll(flag));
     }
 
     @Override
     public FireBoxDto save(FireBoxDto fireBoxDto) {
-        return examMapper.toFireBoxDto(fireBoxRepository.save(examMapper.toFireBoxEntity(fireBoxDto)));
+        return fireBoxMapper.toFireBoxDto(fireBoxRepository.save(fireBoxMapper.toFireBoxEntity(fireBoxDto)));
     }
 }

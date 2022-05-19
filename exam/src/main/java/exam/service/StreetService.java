@@ -10,6 +10,6 @@ public interface StreetService {
 
     List<StreetDto> findAll();
 
-    StreetDto save(StreetDto streetDto);
+    StreetDto save(long districtId, StreetDto streetDto);
 
 }

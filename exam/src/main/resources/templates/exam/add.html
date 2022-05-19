@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name = "viewport" content = "width=device-width, initial-scale = 1">
+    <meta charset="UTF-8">
+    <title>ADD</title>
+    <script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/js/choiceAddress.js"></script>
+    <script src="/js/delete.js"></script>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css"/>
+</head>
+<body>
+<form id="add-district" th:action="@{/smc/district/save}" action="add.html" method="post">
+    <input type="text" name="name" placeholder="Добавить район" required/>
+    <input type="submit" value="Добавить район">
+    <input id="del-distr" type="button" value="Удалить район"><br><br>
+</form>
+<form id="check-form" action="#" th:action="@{/smc/street/save}" method="post">
+        <select id="district" required name="streetId">
+            <optgroup th:label="#{exam.uzao}">
+                <option id="first-option" disabled selected th:text="#{exam.choice.district}">Выберите район</option>
+                <option th:each="district, stat: ${districts}"
+                        th:text="${district.name}" th:value="${district.id}">art</option>
+            </optgroup>
+        </select><br><br>
+    <input class="add-street" type="text" name="name" placeholder="Добавить улицу" required/>
+        <input class="add-street" type="submit" value="Добавить улицу"/>
+        <input id="del-street" class="add-street" type="button" value="Удалить улицу"/><br><br>
+</form>
+<form id="street-add" action="smc.html" th:action="@{/smc/house/save}" method="post">
+        <select id="street" required name="houseId">
+            <option disabled selected th:text="#{exam.choice.street}" >Выберите улицу</option>
+        </select><br><br>
+
+        <input class="add-house" type="number" min="1" placeholder="Номер дома" name="number" required/>
+        <input class="add-house" type="text" placeholder="кор, стр, /" name="sing" />
+        <input class="add-house" type="number" min="1" placeholder="добавьте корпус" name="prefix"/><br><br>
+        <input class="add-house" type="submit" value="Добавить дом"/>
+        <input id="del-house" class="add-house" type="button" value="Удалить дом"/><br><br>
+</form>
+<form id="house-add" action="smc.html" th:action="@{/smc/house/add}" method="post">
+        <select id="house" required name="houseId">
+            <option disabled selected th:text="#{exam.choice.house}">Выберите дом</option>
+        </select><br><br>
+
+        <a class="back" th:href="@{/smc}" href="smc.html"><img th:src="@{/images/back.png}" title="Вернуться назад"/></a>
+</form>
+</body>
+</html>

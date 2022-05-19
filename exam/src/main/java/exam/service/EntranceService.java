@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface EntranceService {
 
-    List<EntranceDto> findAllEntrancesByHouseDetailsId(long id);
+    List<EntranceDto> findAllEntrancesByHouseDetailsIdOrNew(long id);
     List<EntranceDto> findAllEntrancesByWork(boolean flag);
     List<EntranceDto> findAllEntrancesByAttic(boolean flag);
     List<EntranceDto> findAllEntrancesByBasement(boolean flag);

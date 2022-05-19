@@ -2,10 +2,12 @@ package exam.model;
 
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "entrance")
 public class Entrance {
@@ -26,14 +28,16 @@ public class Entrance {
     @Column(name = "first_level", nullable = false)
     private boolean hasFirstLevel;
     @Column(name = "work", nullable = false)
-    private boolean isWork;
+    private boolean work;
     @Column(name = "basement", nullable = false)
-    private boolean isBasementOpen;
+    private boolean basement;
     @Column(name = "attic", nullable = false)
-    private boolean isAtticOpen;
+    private boolean attic;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "house_details_id")
     private HouseDetails houseDetails;
+    @OneToOne(mappedBy = "entrance", cascade = CascadeType.ALL)
+    private FireBox fireBox;
 
 
 }

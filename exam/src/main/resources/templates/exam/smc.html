@@ -7,20 +7,19 @@
     <script src="/webjars/jquery/3.3.1/jquery.min.js"></script>
     <script src="/js/choiceAddress.js"></script>
     <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css"/>
+    <script>
+
+    </script>
 </head>
 <body>
-<form id="check-form" action="#" th:action="@{/smc/check}">
+<form id="check-form" action="#" th:action="@{/smc/check}" method="get">
     <fieldset>
         <legend>Выбор адреса</legend>
         <fieldset id="house-data">
             <legend id="house-num" th:text="#{exam.house}">Данные дома:</legend>
             <div id="inner-div">
                 <div id="house-check">
-                    <p th:text="#{exam.check}">check</p>
-                    <img th:alt="#{exam.check}" th:src="@{/images/add.png}"/>
                 </div>
-                <p id="house-entry" th:text="#{exam.entrance}">NA</p>
-                <p id="house-sys" th:text="#{exam.system}">NA</p>
             </div>
         </fieldset>
         <select id="district" required>
@@ -33,14 +32,15 @@
         <select id="street" required>
             <option disabled selected th:text="#{exam.choice.street}">Выберите улицу</option>
         </select><br><br>
-        <select id="house" required>
+        <select id="house" required name="houseId">
             <option disabled selected th:text="#{exam.choice.house}">Выберите дом</option>
         </select><br><br>
-        <input id="btn-check" type="submit" value="Начать проверку">
+        <input id="btn-check" type="submit" value="Начать проверку" disabled/>
     </fieldset>
     <fieldset id="master">
-        <legend>Командный пункт</legend>
-        <a th:href="@{/smc/addStreet}" href="smc.html" title="Добавить улицу"><img th:src="@{/images/add.png}"></a>
+        <legend>Управление</legend>
+        <a th:href="@{/add}" href="smc.html"><img th:src="@{/images/edit.png}" title="Добавить\Удалить"></a>
+        <a class="back" th:href="@{/}" href="../"><img th:src="@{/images/back.png}" title="Назад"></a>
     </fieldset>
 </form>
 </body>
