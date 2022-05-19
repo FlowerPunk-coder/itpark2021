@@ -40,4 +40,14 @@ public class EntranceServiceImpl implements EntranceService {
     public EntranceDto save(EntranceDto entranceDto) {
         return entranceMapper.toEntranceDto(entranceRepository.save(entranceMapper.toEntranceEntity(entranceDto)));
     }
+
+    @Override
+    public List<EntranceDto> findAllEntrancesByHouseDetailsId(long id) {
+        return entranceMapper.toEntranceDtos(entranceRepository.findByHouseDetailsId(id));
+    }
+
+    @Override
+    public EntranceDto findById(long id) {
+        return entranceMapper.toEntranceDto(entranceRepository.getById(id));
+    }
 }

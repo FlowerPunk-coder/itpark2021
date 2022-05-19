@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -99,7 +100,7 @@ public class AdminController {
 
     @PostMapping("/smc/entrance/save")
     @Transactional
-    public String saveEntrance(long houseDetailsId, long houseId, EntranceDto entranceDto) {
+    public String saveEntrance(long houseDetailsId, long houseId, EntranceDto entranceDto, Model model) {
         HouseDto house = houseService.findById(houseId);
         house.setDate(Timestamp.from(Calendar.getInstance().toInstant()));
         house.setChecked(true);
@@ -107,6 +108,22 @@ public class AdminController {
         HouseDetailsDto houseDetailsDto = houseDetailsService.findByHouseIdOrException(houseDetailsId);
         entranceDto.setHouseDetails(houseDetailsDto);
         entranceService.save(entranceDto);
+        List<EntranceDto> entranceDtos = entranceService.findAllEntrancesByHouseDetailsId(houseDetailsId);
+        List<FireBoxDto> fireBoxDtos = new ArrayList<>();
+        for(int i = 0; i < entranceDtos.size(); i++) {
+            fireBoxDtos.add(fireBoxService.findFireBoxByEntranceIdOrNew(entranceDtos.get(i).getId()));
+            fireBoxDtos.get(i).setEntrance(entranceDtos.get(i));
+        }
+        model.addAttribute("fireboxes", fireBoxDtos);
+        return "/exam/firebox";
+    }
+
+    @PostMapping("/smc/firebox/save")
+    @Transactional
+    public String saveFirebox(FireBoxDto fireBoxDto) {
+        EntranceDto entranceDto = entranceService.findById(fireBoxDto.getId());
+        fireBoxDto.setEntrance(entranceDto);
+        fireBoxService.save(fireBoxDto);
         return "redirect:/smc";
     }
 }

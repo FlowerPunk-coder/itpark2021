@@ -22,5 +22,8 @@ public interface EntranceRepository extends JpaRepository<Entrance, Long> {
     @Query("select e from Entrance e where e.basement = :flag")
     List<Entrance> findAllByBasementOpen(boolean flag);
 
+    @Query("select e from Entrance e where e.houseDetails.id = :id")
+    List<Entrance> findByHouseDetailsId(long id);
+
 
 }

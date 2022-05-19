@@ -9,12 +9,13 @@ import java.util.List;
 @RepositoryRestResource
 public interface FireBoxRepository extends JpaRepository<FireBox, Long> {
 
-    @Query("select fb from FireBox fb where fb.hasComplete = :flag")
+    @Query("select fb from FireBox fb where fb.complete = :flag")
     List<FireBox> findAllFireBoxesByComplete(boolean flag);
 
-    @Query("select fb from FireBox fb where fb.hasAccess = :flag")
+    @Query("select fb from FireBox fb where fb.access = :flag")
     List<FireBox> findAllFireBoxesByAccess(boolean flag);
 
     @Query("select fb from FireBox fb where fb.hasDoubleRoll = :flag")
     List<FireBox> findAllFireBoxesByDoubleRoll(boolean flag);
+
 }

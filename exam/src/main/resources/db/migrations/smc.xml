@@ -97,7 +97,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="number_entrance" type="int">
-                <constraints nullable="false" primaryKey="true"/>
+                <constraints nullable="false"/>
             </column>
             <column name="levels" type="int">
                 <constraints nullable="false"/>

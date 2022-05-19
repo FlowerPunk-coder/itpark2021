@@ -20,7 +20,7 @@
 
         <label>Номер подъезда:</label>
         <input th:unless="${entrance.numberEntrance}"  type="number" name='numberEntrance'
-               th:value="${stat.count}" title="Номер подъезда"/><br><br>
+               th:value="${stat.count}" title="Номер подъезда"/>
         <input th:if="${entrance.numberEntrance}" type="number" name='numberEntrance'
                th:value="${entrance.numberEntrance}" title="Номер подъезда"/><br><br>
 
@@ -36,13 +36,15 @@
         <input id="number-pipes" type="number" th:value="${entrance.numberOfPipes}"
                name="numberOfPipes" placeholder='количество стояков' required/><br><br>
         <label for="number-cranes">Количество пожарных кранов:</label>
-        <input id="number-cranes" type="number" th:value="${entrance.numberOfFireCranes}" name="numberOfFireCranes" placeholder='количество кранов' required/><br><br>
+        <input id="number-cranes" type="number" th:value="${entrance.numberOfFireCranes}"
+               name="numberOfFireCranes" placeholder='количество кранов' required/><br><br>
 
         <label for="first-lvl">ПШ на первом этаже:</label>
         <input id="first-lvl" type="checkbox"  name="hasFirstLevel" title='ПШ на первом этаже' value="true" checked/><br><br>
 
         <label for="basement">Подвал открыт:</label>
-        <input id="basement" type="checkbox" th:checked="${entrance.basement}" name="basement" title='Подвал открыт' value="true"/><br><br>
+        <input id="basement" type="checkbox" th:checked="${entrance.basement}"
+               name="basement" title='Подвал открыт' value="true"/><br><br>
 
         <label for="attic">Чердак открыт:</label>
         <input id="attic" type="checkbox" th:checked="${entrance.attic}" name="attic" title='Чердак открыт' value="true"/><br><br>
@@ -52,11 +54,12 @@
 
         <input type="text" th:value="${entrance.houseDetails.id}" name="houseDetailsId" hidden/>
         <input type="text" th:value="${entrance.houseDetails.house.id}" name="houseId" hidden/>
+
+        <input id="house-dtl-form" class="btn-in-details" type="submit" value="Сохранить"/>
     </details>
 
-
-    <input id="house-dtl-form" type="submit" value="Сохранить"/><br><br>
-    <a class="back" th:href="@{/smc}" href="check.html"><img th:src="@{/images/back.png}" title="Назад"></a>
+    <input type="number" name="houseDetailsId" th:value="${entrance.houseDetails.id}" hidden/>
 </form>
+<a class="back" th:href="@{/smc}" href="check.html"><img th:src="@{/images/back.png}" title="Назад"></a>
 </body>
 </html>

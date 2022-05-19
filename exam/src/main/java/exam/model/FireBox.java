@@ -15,13 +15,13 @@ public class FireBox {
     @Id
     private long id;
     @Column(name = "complete")
-    private boolean hasComplete;
+    private boolean complete;
     @Column(name = "double_roll")
     private boolean hasDoubleRoll;
     @Column(name = "fire_hose")
     private boolean hasFireHose;
     @Column(name = "access")
-    private boolean hasAccess;
+    private boolean access;
     @Column(name = "component")
     private boolean hasComponent;
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

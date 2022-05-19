@@ -11,4 +11,6 @@ public interface EntranceService {
     List<EntranceDto> findAllEntrancesByAttic(boolean flag);
     List<EntranceDto> findAllEntrancesByBasement(boolean flag);
     EntranceDto save(EntranceDto entranceDto);
+    List<EntranceDto> findAllEntrancesByHouseDetailsId(long id);
+    EntranceDto findById(long id);
 }

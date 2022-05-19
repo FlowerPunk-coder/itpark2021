@@ -2,6 +2,7 @@ package exam.service.impl;
 
 import exam.dto.FireBoxDto;
 import exam.mapper.FireBoxMapper;
+import exam.model.FireBox;
 import exam.repository.FireBoxRepository;
 import exam.service.FireBoxService;
 import lombok.RequiredArgsConstructor;
@@ -18,9 +19,14 @@ public class FireBoxServiceImpl implements FireBoxService {
     private final FireBoxMapper fireBoxMapper;
 
     @Override
-    public FireBoxDto findFireBoxByEntranceId(long id) {
+    public FireBoxDto findFireBoxByEntranceIdOrThrow(long id) {
         return fireBoxMapper.toFireBoxDto(fireBoxRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Not found!")));
+    }
+
+    @Override
+    public FireBoxDto findFireBoxByEntranceIdOrNew(long id) {
+        return fireBoxMapper.toFireBoxDto(fireBoxRepository.findById(id).orElse(new FireBox()));
     }
 
     @Override

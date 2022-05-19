@@ -1,16 +1,25 @@
 $(document).ready(function () {
 
-    $('#entrances').submit(function (event) {
+    $(this).submit(function (event) {
 
       event.preventDefault();
 
-      var data =
+      var data_sum = $('#entrances').serializeArray();
 
-      $.post({
-          url: "/api/entrances/"
+
+      $.ajax({
+          url: '/api/entrances/' + data_sum,
+          type: 'POST',
       })
+          .done(function (result) {
+              alert('Added ' + result.text);
+          })
+          .fail(function (jqXHR, result) {
 
-      console.log(data);
+              alert('Error ' + result.text +' ' + jqXHR.status);
+          })
+
+      console.log(data_sum);
 
   });
 });
